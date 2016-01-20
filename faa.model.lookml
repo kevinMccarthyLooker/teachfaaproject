@@ -3,7 +3,10 @@
 
 - include: "*.lookml"
 
-- base_view: flights
+- explore: ontime
+  label: ontime_flights
+
+- explore: flights
   view: flights
   sql_always_where: dep_time > '1960-01-01'
   joins:
@@ -23,9 +26,9 @@
     - join: aircraft
       sql_on: flights.tail_num = aircraft.tail_num
       fields: aircraft.export
-
-    - join: aircraft_flights_facts
-      sql_foreign_key: flights.tail_num
+# 
+#     - join: aircraft_flights_facts
+#       foreign_key: flights.tail_num
 
     - join: aircraft_models
       using: aircraft_model_code
@@ -36,10 +39,10 @@
       required_joins: [aircraft_models]
  
      
-- base_view: airports
+- explore: airports
   view: airports
   
-- base_view: aircraft
+- explore: aircraft
   view: aircraft
   joins:
     - join: aircraft_models
@@ -48,11 +51,11 @@
     - join: aircraft_types
       sql_on: aircraft_models.aircraft_type_id = aircraft_types.aircraft_type_id
       required_joins: [aircraft_models]
+# 
+#     - join: aircraft_flights_facts
+#       foreign_key: aircraft.tail_num
 
-    - join: aircraft_flights_facts
-      sql_foreign_key: aircraft.tail_num
-
-# - base_view: accidents
+# - explore: accidents
 #   view: accidents
 #   joins:
 #     - join: aircraft

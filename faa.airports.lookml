@@ -20,12 +20,12 @@
 
     - measure: count                    # count the number of different
       type: count                       #  airport codes we encounter.
-      detail: detail                    # the set of fields to show when we drill
+      drill_fields: detail*                    # the set of fields to show when we drill
                                         #  into AIRPORTS Count
 
     - measure: with_control_tower_count
       type: count     
-      detail: detail                    # set of fields to drill into
+      drill_fields: detail*                    # set of fields to drill into
       filters:
         control_tower: Yes              # only count airports with control towers.
 
