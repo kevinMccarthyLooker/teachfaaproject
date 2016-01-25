@@ -23,7 +23,7 @@
     type: int
     sql: ${TABLE}.dep_delay
 
-  - dimension_group: dep
+  - dimension_group: depart
     type: time
     timeframes: [time, date, week, month]
     sql: ${TABLE}.dep_time
@@ -32,9 +32,64 @@
     type: string
     sql: ${TABLE}.destination
 
-  - dimension: distance
-    type: int
+############################## Training fields #######################
+
+  - dimension: 1__distance
+    type: number
     sql: ${TABLE}.distance
+
+  - measure: 1__total_distance
+    type: sum
+    sql: ${1__distance}
+    
+  - measure: 1__average_distance
+    type: average
+    sql: ${1__distance}
+    
+  - measure: 1__count
+    type: count
+    drill_fields: detail*
+    
+  - dimension: 1__distance_tiered
+    type: tier
+    sql: ${1__distance}
+    style: interval
+    tiers: [0,100,200,400,600,800,1200,1600,3200]
+    
+    
+  - dimension: 1__is_long_flight
+    type: yesno
+    sql: ${1__distance} > 1000
+    
+  - measure: 1__total_long_flight_distance
+    type: sum
+    sql: ${1__distance}
+    filters:
+      1__is_long_flight: Yes
+      
+  - measure: 1__count_long_flight_distance
+    type: count
+    drill_fields: detail*
+    filters:
+      1__is_long_flight: Yes
+    
+  - measure: 1__percentage_long_flight_distance
+    type: number
+    value_format: '0.0\%'
+    sql: 100.00*${1__total_long_flight_distance}/NULLIF(${1__total_distance}, 0)
+    
+  - measure: 1__percentage_long_flights
+    type: number
+    value_format: '0.0\%'
+    sql: 100.00*${1__count_long_flight_distance}/NULLIF(${1__count}, 0)
+    
+  - dimension: 1__aircraft_years_in_service
+    type: number
+    sql: extract(year from ${depart_date}) - ${aircraft.year_built}
+        
+
+      
+#####################################################################
 
   - dimension: diverted
     type: string
@@ -67,8 +122,4 @@
   - dimension: taxi_out
     type: int
     sql: ${TABLE}.taxi_out
-
-  - measure: count
-    type: count
-    drill_fields: []
 
