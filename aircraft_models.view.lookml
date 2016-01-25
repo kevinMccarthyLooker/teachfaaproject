@@ -2,6 +2,12 @@
   sql_table_name: public.aircraft_models
   fields:
 
+  - dimension: aircraft_model_code
+    primary_key: true
+    type: string
+    sql: ${TABLE}.aircraft_model_code
+
+
   - dimension: aircraft_category_id
     type: int
     sql: ${TABLE}.aircraft_category_id
@@ -9,10 +15,6 @@
   - dimension: aircraft_engine_type_id
     type: int
     sql: ${TABLE}.aircraft_engine_type_id
-
-  - dimension: aircraft_model_code
-    type: string
-    sql: ${TABLE}.aircraft_model_code
 
   - dimension: aircraft_type_id
     type: int
