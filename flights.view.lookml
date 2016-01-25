@@ -63,6 +63,38 @@
   - dimension: tail_num
     type: string
     sql: ${TABLE}.tail_num
+  
+  - dimension: arrival_status
+    sql_case:
+      Cancelled: ${TABLE}.cancelled='Y'
+      Diverted: ${TABLE}.diverted='Y'
+      Very Late: ${TABLE}.arr_delay > 60
+      OnTime: ${TABLE}.arr_delay BETWEEN -10 and 10
+      Late: ${TABLE}.arr_delay > 10
+      else: Early
+  
+  - measure: cancelled_count
+    type: count
+    drill_fields: detail
+    filters: 
+      cancelled: Yes  
+
+  - measure: not_cancelled_count
+    type: count
+    drill_fields: detail
+    filters: 
+      cancelled: No 
+
+  - measure: percent_cancelled
+    type: number
+    decimals: 2
+    sql: 100.0 * ${cancelled_count}/${count}
+
+  - measure: percent_complete
+    type: number
+    decimals: 2
+    sql: 1.0 - ${percent_cancelled}
+
 
 # Hidden For Now 
 

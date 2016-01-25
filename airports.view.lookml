@@ -114,4 +114,18 @@
   - measure: count
     type: count
     drill_fields: [id, full_name]
+    
+  - measure: with_control_tower_count
+    type: count     
+    drill_fields: detail*                    
+    filters:
+      control_tower: Yes              
+
+  - measure: min_elevation
+    type: min
+    sql: ${TABLE}.elevation
+    
+  - measure: max_elevation
+    type: max
+    sql: ${TABLE}.elevation
 
