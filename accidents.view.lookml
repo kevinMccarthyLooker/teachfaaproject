@@ -4,6 +4,7 @@
 
   - dimension: id
     primary_key: true
+    hidden: true
     type: int
     sql: ${TABLE}.id
 
@@ -123,7 +124,7 @@
 
   - dimension_group: publication
     type: time
-    timeframes: [time, date, week, month]
+    timeframes: [date, week, month, year, hour_of_day, day_of_week]
     sql: ${TABLE}.publication_date
 
   - dimension: purpose_of_flight
@@ -142,9 +143,18 @@
     type: string
     sql: ${TABLE}.schedule
 
-  - dimension: weather_condition
+  - dimension: weather_condition_input
     type: string
     sql: ${TABLE}.weather_condition
+    
+  - dimension: weather_condition
+    type: string 
+    description: 'Aircraft weather condition as visual reference or instrument only reference'
+    sql_case: 
+      visual: ${weather_condition_input} = 'VMC'
+      instruments_only: ${weather_condition_input} = 'IMC'
+      else: other
+
 
   - measure: count
     type: count
