@@ -69,15 +69,17 @@
     sql: ${TABLE}.investigation_type
 
   - dimension: location
+    description: 'Location Text (i.e. Atlanta, GA)'
     type: string
     sql: ${TABLE}.location
 
   - dimension: latitude
+    hidden: true
     type: number
     sql: REGEXP_REPLACE(COALESCE(${TABLE}.latitude,'0'), '[^0-9.-]+', '') 
     
-    
   - dimension: longitude
+    hidden: true
     type: number
     sql: REGEXP_REPLACE(COALESCE(${TABLE}.longitude,'0'), '[^0-9.-]+', '') 
     
@@ -88,10 +90,14 @@
     sql_longitude: CASE WHEN ${TABLE}.longitude != '' THEN ${TABLE}.longitude::float ELSE NULL END
   
   - dimension: make
+    description: 'Aircraft Make'
+    label: 'Aircraft Make'
     type: string
     sql: ${TABLE}.make
 
   - dimension: model
+    description: 'Aircraft Model'
+    label: 'Aircraft Model'
     type: string
     sql: ${TABLE}.model
 
