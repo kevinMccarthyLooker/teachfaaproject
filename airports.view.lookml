@@ -4,12 +4,15 @@
 
   - dimension: id
     primary_key: true
-    type: int
+    type: number
+    hidden: true
+    value_format: decimal_0
     sql: ${TABLE}.id
 
   - dimension: act_date
+    description: 'Date this airport became active, Default is 01/1970'
     type: string
-    sql: ${TABLE}.act_date
+    sql: CASE WHEN ${TABLE}.act_date = '' THEN '01/1970' ELSE ${TABLE}.act_date END
 
 #   - dimension: aero_cht
 #     type: string
@@ -24,7 +27,8 @@
 #     sql: ${TABLE}.cbd_dir
 # 
 #   - dimension: cbd_dist
-#     type: int
+#     type: number
+#     value_format: decimal_0
 #     sql: ${TABLE}.cbd_dist
 
 #   - dimension: cert
@@ -43,17 +47,19 @@
     type: string
     sql: ${TABLE}.code
 
-#   - dimension: county
-#     type: string
-#     sql: ${TABLE}.county
+  - dimension: county
+    type: string
+    sql: ${TABLE}.county
 # 
 #   - dimension: cust_intl
 #     type: string
 #     sql: ${TABLE}.cust_intl
 # 
-#   - dimension: elevation
-#     type: int
-#     sql: ${TABLE}.elevation
+  - dimension: elevation
+    hidden: true
+    type: number
+    value_format: decimal_0
+    sql: ${TABLE}.elevation
 
 #   - dimension: faa_dist
 #     type: string
@@ -80,8 +86,8 @@
     sql: ${TABLE}.full_name
 
   - dimension: joint_use
-    type: string
-    sql: ${TABLE}.joint_use
+    type: yesno
+    sql: ${TABLE}.joint_use = 'Y'
 
   - dimension: latitude
     type: number
@@ -91,9 +97,14 @@
     type: number
     sql: ${TABLE}.longitude
 
-  - dimension: major
-    type: string
-    sql: ${TABLE}.major
+  - dimension: map_location
+    type: location
+    sql_latitude: ${latitude}
+    sql_longitude: ${longitude}
+
+  - dimension: is_major
+    type: yesno
+    sql: ${TABLE}.major = 'Y'
 
 #   - dimension: mil_rts
 #     type: string
@@ -115,17 +126,21 @@
     type: count
     drill_fields: [id, full_name]
     
-  - measure: with_control_tower_count
-    type: count     
-    drill_fields: detail*                    
-    filters:
-      control_tower: Yes              
+#   - measure: with_control_tower_count
+#     type: count     
+#     drill_fields: detail*                    
+#     filters:
+#       control_tower: Yes              
 
   - measure: min_elevation
     type: min
-    sql: ${TABLE}.elevation
+    sql: ${elevation}
     
   - measure: max_elevation
     type: max
-    sql: ${TABLE}.elevation
+    sql: ${elevation}
+    
+  - measure: avg_elevation
+    type: average
+    sql: ${elevation}
 
