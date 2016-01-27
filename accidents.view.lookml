@@ -68,18 +68,25 @@
     type: string
     sql: ${TABLE}.investigation_type
 
-  - dimension: latitude
-    type: string
-    sql: ${TABLE}.latitude
-
   - dimension: location
     type: string
     sql: ${TABLE}.location
 
+  - dimension: latitude
+    type: number
+    sql: REGEXP_REPLACE(COALESCE(${TABLE}.latitude,'0'), '[^0-9.-]+', '') 
+    
+    
   - dimension: longitude
-    type: string
-    sql: ${TABLE}.longitude
-
+    type: number
+    sql: REGEXP_REPLACE(COALESCE(${TABLE}.longitude,'0'), '[^0-9.-]+', '') 
+    
+  - dimension: map_location
+    description: 'Latitude and Longitude location of the accident, with a link to the map!'
+    type: location
+    sql_latitude: CASE WHEN ${TABLE}.latitude != '' THEN ${TABLE}.latitude::float ELSE NULL END
+    sql_longitude: CASE WHEN ${TABLE}.longitude != '' THEN ${TABLE}.longitude::float ELSE NULL END
+  
   - dimension: make
     type: string
     sql: ${TABLE}.make
@@ -89,23 +96,23 @@
     sql: ${TABLE}.model
 
   - dimension: number_of_engines
-    type: string
+    type: number
     sql: ${TABLE}.number_of_engines
 
   - dimension: number_of_fatalities
-    type: string
+    type: number
     sql: ${TABLE}.number_of_fatalities
 
   - dimension: number_of_minor_injuries
-    type: string
+    type: number
     sql: ${TABLE}.number_of_minor_injuries
 
   - dimension: number_of_serious_injuries
-    type: string
+    type: number
     sql: ${TABLE}.number_of_serious_injuries
 
   - dimension: number_of_uninjured
-    type: string
+    type: number
     sql: ${TABLE}.number_of_uninjured
 
   - dimension_group: publication
