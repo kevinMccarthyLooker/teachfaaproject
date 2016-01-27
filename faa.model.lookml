@@ -2,6 +2,7 @@
 
 - include: "*.view.lookml"       # include all views in this project
 - include: "*.dashboard.lookml"  # include all dashboards in this project
+- label: 'Federal Aviation'
 
 - explore: airports
 

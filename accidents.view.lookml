@@ -156,7 +156,7 @@
       else: other
 
 
-  - measure: count
+  - measure: accident_count
     type: count
     drill_fields: [id, airport_name]
 
