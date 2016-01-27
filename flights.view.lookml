@@ -140,6 +140,9 @@
     filters: 
       cancelled: No 
 
+  - measure: count
+    type: count
+    drill_fields: detail
 
   - dimension: taxi_out
     type: int
