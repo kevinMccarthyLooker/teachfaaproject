@@ -15,6 +15,7 @@
   fields:
   - dimension: tail_num
     primary_key: true
+    hidden: true
     type: string
     sql: ${TABLE}.tail_num
 
