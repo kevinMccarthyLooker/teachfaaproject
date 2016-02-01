@@ -4,6 +4,7 @@
 
   - dimension: id
     primary_key: true
+    hidden: true
     type: int
     sql: ${TABLE}.id
 
@@ -68,49 +69,62 @@
     type: string
     sql: ${TABLE}.investigation_type
 
-  - dimension: latitude
-    type: string
-    sql: ${TABLE}.latitude
-
   - dimension: location
+    description: 'Location Text (i.e. Atlanta, GA)'
     type: string
     sql: ${TABLE}.location
 
+  - dimension: latitude
+    hidden: true
+    type: number
+    sql: REGEXP_REPLACE(COALESCE(${TABLE}.latitude,'0'), '[^0-9.-]+', '') 
+    
   - dimension: longitude
-    type: string
-    sql: ${TABLE}.longitude
-
+    hidden: true
+    type: number
+    sql: REGEXP_REPLACE(COALESCE(${TABLE}.longitude,'0'), '[^0-9.-]+', '') 
+    
+  - dimension: map_location
+    description: 'Latitude and Longitude location of the accident, with a link to the map!'
+    type: location
+    sql_latitude: CASE WHEN ${TABLE}.latitude != '' THEN ${TABLE}.latitude::float ELSE NULL END
+    sql_longitude: CASE WHEN ${TABLE}.longitude != '' THEN ${TABLE}.longitude::float ELSE NULL END
+  
   - dimension: make
+    description: 'Aircraft Make'
+    label: 'Aircraft Make'
     type: string
     sql: ${TABLE}.make
 
   - dimension: model
+    description: 'Aircraft Model'
+    label: 'Aircraft Model'
     type: string
     sql: ${TABLE}.model
 
   - dimension: number_of_engines
-    type: string
+    type: number
     sql: ${TABLE}.number_of_engines
 
   - dimension: number_of_fatalities
-    type: string
+    type: number
     sql: ${TABLE}.number_of_fatalities
 
   - dimension: number_of_minor_injuries
-    type: string
+    type: number
     sql: ${TABLE}.number_of_minor_injuries
 
   - dimension: number_of_serious_injuries
-    type: string
+    type: number
     sql: ${TABLE}.number_of_serious_injuries
 
   - dimension: number_of_uninjured
-    type: string
+    type: number
     sql: ${TABLE}.number_of_uninjured
 
   - dimension_group: publication
     type: time
-    timeframes: [time, date, week, month]
+    timeframes: [date, week, month, year, hour_of_day, day_of_week]
     sql: ${TABLE}.publication_date
 
   - dimension: purpose_of_flight
@@ -129,11 +143,20 @@
     type: string
     sql: ${TABLE}.schedule
 
-  - dimension: weather_condition
+  - dimension: weather_condition_input
     type: string
     sql: ${TABLE}.weather_condition
+    
+  - dimension: weather_condition
+    type: string 
+    description: 'Aircraft weather condition as visual reference or instrument only reference'
+    sql_case: 
+      visual: ${weather_condition_input} = 'VMC'
+      instruments_only: ${weather_condition_input} = 'IMC'
+      else: other
 
-  - measure: count
+
+  - measure: accident_count
     type: count
     drill_fields: [id, airport_name]
 
