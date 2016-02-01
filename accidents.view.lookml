@@ -34,7 +34,7 @@
 
   - dimension: amateur_built
     type: yesno
-    sql: ${TABLE}.amateur_built='yes'
+    sql: ${TABLE}.amateur_built='Yes'
 
   - dimension: broad_phase_of_flight
     type: string
@@ -184,6 +184,14 @@
     value_format_name: decimal_0
     sql: ${number_of_uninjured}
     
+  - dimension: number_injured
+    type: number
+    sql: (${number_of_uninjured}+${number_of_fatalities}+${number_of_minor_injuries}+${number_of_serious_injuries})
+    
+  - dimension: total_number_injured
+    type: sum
+    sql: ${number_injured}
+    
   - measure: percent_injured
     value_format_name: percent_2
-    sql: ${total_number_of_uninjured}/(${total_number_of_uninjured} + ${})
+    sql: ${total_number_of_uninjured}
