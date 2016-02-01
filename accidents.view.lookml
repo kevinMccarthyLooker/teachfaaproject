@@ -33,8 +33,8 @@
     sql: ${TABLE}.airport_name
 
   - dimension: amateur_built
-    type: string
-    sql: ${TABLE}.amateur_built
+    type: yesno
+    sql: ${TABLE}.amateur_built='yes'
 
   - dimension: broad_phase_of_flight
     type: string
@@ -104,22 +104,27 @@
 
   - dimension: number_of_engines
     type: number
+    value_format_name: decimal_0
     sql: ${TABLE}.number_of_engines
 
   - dimension: number_of_fatalities
     type: number
+    value_format_name: decimal_0
     sql: ${TABLE}.number_of_fatalities
 
   - dimension: number_of_minor_injuries
     type: number
+    value_format_name: decimal_0
     sql: ${TABLE}.number_of_minor_injuries
 
   - dimension: number_of_serious_injuries
     type: number
+    value_format_name: decimal_0
     sql: ${TABLE}.number_of_serious_injuries
 
   - dimension: number_of_uninjured
     type: number
+    value_format_name: decimal_0
     sql: ${TABLE}.number_of_uninjured
 
   - dimension_group: publication
@@ -155,8 +160,30 @@
       instruments_only: ${weather_condition_input} = 'IMC'
       else: other
 
-
   - measure: accident_count
     type: count
     drill_fields: [id, airport_name]
+  
+  - measure: total_number_of_fatalities
+    type: sum
+    value_format_name: decimal_0
+    sql: ${number_of_fatalities}
 
+  - measure: total_number_of_minor_injuries
+    type: sum
+    value_format_name: decimal_0
+    sql: ${number_of_minor_injuries}
+
+  - measure: total_number_of_serious_injuries
+    type: sum
+    value_format_name: decimal_0
+    sql: ${number_of_serious_injuries}
+
+  - measure: total_number_of_uninjured
+    type: sum
+    value_format_name: decimal_0
+    sql: ${number_of_uninjured}
+    
+  - measure: percent_injured
+    value_format_name: percent_2
+    sql: ${total_number_of_uninjured}/(${total_number_of_uninjured} + ${})
