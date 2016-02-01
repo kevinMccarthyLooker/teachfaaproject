@@ -2,7 +2,7 @@
 - view: aircraft_flight_facts
   derived_table:
     sortkeys: [tail_num]
-    persist_for: 2000 hours
+    sql_trigger_value: select current_date
     sql: |
       SELECT
       f.tail_num AS tail_num
