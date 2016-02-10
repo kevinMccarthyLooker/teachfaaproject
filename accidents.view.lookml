@@ -188,7 +188,7 @@
     type: number
     sql: (${number_of_uninjured}+${number_of_fatalities}+${number_of_minor_injuries}+${number_of_serious_injuries})
     
-  - dimension: total_number_injured
+  - measure: total_number_injured
     type: sum
     sql: ${number_injured}
     
