@@ -10,7 +10,8 @@
 
   - dimension: arrival_delay
     hidden: true
-    type: int
+    type: number 
+    value_format_name: decimal_0
     sql: ${TABLE}.arr_delay
 
   - dimension_group: arrival
@@ -28,7 +29,8 @@
 
   - dimension: departure_delay
     hidden: true
-    type: int
+    type: number
+    value_format_name: decimal_0
     sql: ${TABLE}.dep_delay
 
   - dimension_group: departure
@@ -68,7 +70,8 @@
     sql: ${TABLE}.flight_num
 
   - dimension: flight_time
-    type: int
+    type: number
+    value_format_name: decimal_0
     sql: ${TABLE}.flight_time
 
   - dimension: origin
@@ -150,11 +153,13 @@
 # Hidden For Now 
 
 #   - dimension: taxi_in
-#     type: int
+#     type: number
+# value_format_name: decimal_0
 #     sql: ${TABLE}.taxi_in
 # 
 #   - dimension: taxi_out
-#     type: int
+#     type: number
+# value_format_name: decimal_0
 #     sql: ${TABLE}.taxi_out
 
 
