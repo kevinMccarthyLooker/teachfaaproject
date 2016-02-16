@@ -102,7 +102,7 @@
     sql: ${TABLE}.status_code
 
   - dimension: year_built
-    type: int
+    type: number
     sql: ${TABLE}.year_built
 
 

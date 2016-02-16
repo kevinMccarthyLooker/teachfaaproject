@@ -31,7 +31,7 @@
     type: int
     sql: ${TABLE}.dep_delay
 
-  - dimension_group: departure
+  - dimension_group: depart
     type: time
     timeframes: [time, date, week, month, year]
     sql: ${TABLE}.dep_time
@@ -39,25 +39,62 @@
   - dimension: destination
     type: string
     sql: ${TABLE}.destination
+    
+####################### TRAINING FIELDS ############################
 
-  - dimension: distance
+  - dimension: 1_distance
     type: number
     sql: ${TABLE}.distance
-  
-  - dimension: distance_tiered
+
+  - measure: 1_total_distance
+    type: sum
+    sql: ${1_distance}
+    
+  - measure: 1_average_distance
+    type: average
+    sql: ${1_distance}
+    
+  - measure: 1_count
+    type: count
+    drill_fields: detail*
+    
+  - dimension: 1_distance_tiered
     type: tier
-    sql: ${distance}
+    sql: ${1_distance}
     style: interval
     tiers: [0,100,200,400,600,800,1200,1600,3200]
-  
-  - dimension: is_long_flight
+    
+  - dimension: 1_is_long_flight
     type: yesno
-    sql: ${distance} > 1000
-
-
-  - dimension: aircraft_years_in_service
+    sql: ${1_distance} > 1000
+    
+  - measure: 1_total_long_flight_distance
+    type: sum
+    sql: ${1_distance}
+    filters:
+      1_is_long_flight: Yes
+      
+  - measure: 1_count_long_flight
+    type: count
+    drill_fields: detail*
+    filters:
+      1_is_long_flight: Yes
+    
+  - measure: 1_percentage_long_flight_distance
     type: number
-    sql: extract(year from ${departure_date}) - ${aircraft.year_built}
+    value_format: '0.0\%'
+    sql: 100.00*${1_total_long_flight_distance}/NULLIF(${1_total_distance}, 0)
+    
+  - measure: 1_percentage_long_flights
+    type: number
+    value_format: '0.0\%'
+    sql: 100.00*${1_count_long_flight}/NULLIF(${1_count}, 0)
+    
+  - dimension: 1_aircraft_years_in_service
+    type: number
+    sql: extract(year from ${depart_date}) - ${aircraft.year_built}
+      
+#################################################################################
         
   - dimension: diverted
     type: string
@@ -88,38 +125,7 @@
       Late: ${TABLE}.arr_delay > 10
       else: Early
     
-  - measure: flight_count
-    type: count
-    drill_fields: detail*
 
-  - measure: total_distance
-    type: sum
-    sql: ${distance}
-    drill_fields: detail
-    
-  - measure: average_distance
-    type: average
-    sql: ${distance}
-    drill_fields: detail
-    
-  - measure: total_long_flight_distance
-    type: sum
-    sql: ${distance}
-    drill_fields: detail
-    filters:
-      is_long_flight: Yes
-      
-  - measure: count_number_of_long_flights
-    type: count
-    drill_fields: detail*
-    filters:
-      is_long_flight: Yes
-    
-  - measure: percentage_long_flights
-    type: number
-    value_format: '0.0\%'
-    sql: 100.00*${count_number_of_long_flights}/NULLIF(${flight_count}, 0)
-    drill_fields: detail
     
   
   - measure: cancelled_count
