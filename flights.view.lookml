@@ -36,6 +36,7 @@
     timeframes: [time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week, month_num, month, year, quarter, quarter_of_year]
     sql: ${TABLE}.dep_time
 
+
   - dimension: destination
     type: string
     sql: ${TABLE}.destination
@@ -52,7 +53,13 @@
     
   - measure: 1_average_distance
     type: average
+    value_format_name: decimal_3
     sql: ${1_distance}
+    
+  - measure: 1_average_distance_2
+    description: 'new way of calculating'
+    value_format_name: decimal_3
+    sql: ${1_total_distance} / COALESCE(${1_count},0)
     
   - measure: 1_count
     type: count
@@ -61,7 +68,13 @@
   - dimension: 1_distance_tiered
     type: tier
     sql: ${1_distance}
-    style: interval
+    style: classic #comment
+    tiers: [0,100,200,400,600,800,1200,1600,3200]
+    
+  - dimension: 1_distance_tiered_2
+    type: tier
+    sql: ${1_distance}
+    style: interval #comment
     tiers: [0,100,200,400,600,800,1200,1600,3200]
     
   - dimension: 1_is_long_flight
@@ -109,7 +122,7 @@
     sql: ${TABLE}.flight_num
 
   - dimension: flight_time
-    type: int
+    type: number
     sql: ${TABLE}.flight_time
 
   - dimension: origin
@@ -175,5 +188,7 @@
       - origin
       - destination
       - arrival_status
-    
+    my_set: 
+      - percent_complete
+      - percent_cancelled
       
