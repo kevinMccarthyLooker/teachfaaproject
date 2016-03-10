@@ -2,16 +2,6 @@
 - include: "*.view.lookml"       # include all the views
 
 
-## Analyze Accidents
-
-- explore: accidents
-  joins:
-  - join: carriers
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${air_carrier}=${carriers.code}
-#######################################################################################################################################
-
 ## Analyze Aircraft
 
 - explore: aircraft
@@ -37,6 +27,12 @@
 - explore: flights
   extends: aircraft
   joins: 
+  
+    - join: aircraft
+      type: left_outer
+      sql_on: ${flights.tail_num} = ${aircraft.tail_num}
+      relationship: many_to_one
+  
     - join: carriers
       type: left_outer
       sql_on: ${flights.carrier} = ${carriers.code}
@@ -56,10 +52,22 @@
       relationship: one_to_one
       fields: [full_name, city, state, code]
 
-    - join: aircraft
+
+
+
+## Analyze Accidents
+
+- explore: accidents
+  joins:
+    - join: carriers
       type: left_outer
-      sql_on: ${flights.tail_num} = ${aircraft.tail_num}
       relationship: many_to_one
+      sql_on: ${air_carrier}=${carriers.code}
+      
+      
+#######################################################################################################################################
+
+
   
 ###   Using Extensions, I am logically adding in the following from the "aircraft" explore
 ###   (I need to include 'aircraft' above, because here I am replacing a base table)
@@ -90,3 +98,6 @@
 #     from: airports
 #     sql_on: ${flights.destination} = ${airports.code}
 #   
+
+
+

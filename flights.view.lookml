@@ -56,22 +56,12 @@
     value_format_name: decimal_3
     sql: ${1_distance}
     
-  - measure: 1_average_distance_2
-    description: 'new way of calculating'
-    value_format_name: decimal_3
-    sql: ${1_total_distance} / COALESCE(${1_count},0)
-    
   - measure: 1_count
     type: count
     drill_fields: detail*
     
-  - dimension: 1_distance_tiered
-    type: tier
-    sql: ${1_distance}
-    style: classic #comment
-    tiers: [0,100,200,400,600,800,1200,1600,3200]
     
-  - dimension: 1_distance_tiered_2
+  - dimension: 1_distance_tiered
     type: tier
     sql: ${1_distance}
     style: interval #comment
