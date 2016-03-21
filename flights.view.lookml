@@ -31,10 +31,7 @@
     type: int
     sql: ${TABLE}.dep_delay
 
-  - dimension_group: 1_depart
-    type: time
-    timeframes: [time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week, month_num, month, year, quarter, quarter_of_year]
-    sql: ${TABLE}.dep_time
+
 
 
   - dimension: destination
@@ -100,6 +97,12 @@
   - dimension: 1_origin_and_destination
     type: string
     sql: ${aircraft_origin.full_name} || ' to ' || ${aircraft_destination.full_name}
+    
+    
+  - dimension_group: 1_depart
+    type: time
+    timeframes: [time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week, month_num, month, year, quarter, quarter_of_year]
+    sql: ${TABLE}.dep_time
       
 #################################################################################
         
