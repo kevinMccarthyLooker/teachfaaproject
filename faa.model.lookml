@@ -4,8 +4,8 @@
 - include: "*.dashboard.lookml"  # include all dashboards in this project
 # - label: 'Federal Aviation'
 
-- explore: airports
 
+- explore: airports
 
 - explore: flights
   joins: 
