@@ -2,6 +2,7 @@
 
 - include: "*.view.lookml"       # include all views in this project
 - include: "*.dashboard.lookml"  # include all dashboards in this project
+- include: "*.model.lookml" 
 # - label: 'Federal Aviation'
 
 
@@ -41,17 +42,15 @@
       
     
 
-- explore: aircraft
-  joins:
-    - join: aircraft_models
-      type: left_outer
-      sql_on: ${aircraft.aircraft_model_code} = ${aircraft_models.aircraft_model_code}
-      relationship: many_to_one
+# - explore: aircraft
+#   joins:
+#     - join: aircraft_models
+#       type: left_outer
+#       sql_on: ${aircraft.aircraft_model_code} = ${aircraft_models.aircraft_model_code}
+#       relationship: many_to_one
 
 
-- explore: accidents
-
-
+# - explore: accidents
 
 
 

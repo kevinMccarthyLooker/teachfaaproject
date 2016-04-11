@@ -10,7 +10,7 @@
 
   - dimension: arrival_delay
     hidden: true
-    type: int
+    type: number
     sql: ${TABLE}.arr_delay
 
   - dimension_group: arrival
@@ -28,7 +28,7 @@
 
   - dimension: departure_delay
     hidden: true
-    type: int
+    type: number
     sql: ${TABLE}.dep_delay
 
 
@@ -87,8 +87,8 @@
     
   - measure: 1_percentage_long_flight_distance
     type: number
-    value_format: '0.0\%'
-    sql: 100.00*${1_total_long_flight_distance}/NULLIF(${1_total_distance}, 0)
+    value_format: '0.0%'
+    sql: 1.00*${1_total_long_flight_distance}/NULLIF(${1_total_distance}, 0)
     
   - measure: 1_percentage_long_flights
     type: number
@@ -106,7 +106,7 @@
     
   - dimension_group: 1_depart
     type: time
-    timeframes: [time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week, month_num, month, year, quarter, quarter_of_year]
+#     timeframes: [time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week, month_num, month, year, quarter, quarter_of_year]
     sql: ${TABLE}.dep_time
       
 #################################################################################
@@ -155,17 +155,17 @@
     filters: 
       cancelled: No 
 
-  - measure: percent_cancelled
-    type: number
-    decimals: 2
-    sql: 100.0 * ${cancelled_count}/${flight_count}
-    drill_fields: detail
+#   - measure: percent_cancelled
+#     type: number
+#     decimals: 2
+#     sql: 100.0 * ${cancelled_count}/${flight_count}
+#     drill_fields: detail
 
-  - measure: percent_complete
-    type: number
-    decimals: 2
-    sql: 1.0 - ${percent_cancelled}
-    drill_fields: detail
+#   - measure: percent_complete
+#     type: number
+#     decimals: 2
+#     sql: 1.0 - ${percent_cancelled}
+#     drill_fields: detail
 
 
 # Hidden For Now 
@@ -180,7 +180,7 @@
 
 
   sets: 
-    detail: 
+    detail:
       - flight_name
       - distance
       - origin

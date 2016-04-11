@@ -20,11 +20,11 @@
     sql: ${TABLE}.tail_num
 
   - dimension: lifetime_distance
-    type: int
+    type: number
     sql: ${TABLE}.lifetime_distance
 
   - dimension: lifetime_flights
-    type: int
+    type: number
     sql: ${TABLE}.lifetime_flights
     
   - dimension: distance_per_flight
@@ -46,6 +46,7 @@
     type: tier
     tiers: [0,250,500,750,1000,1500]
     sql: ${distance_per_flight}
+    
 
   sets:
     detail:

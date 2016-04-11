@@ -24,33 +24,33 @@
 
 ## Analyze Flights, but include aircraft
 
-- explore: flights
-  extends: aircraft
-  joins: 
-  
-    - join: aircraft
-      type: left_outer
-      sql_on: ${flights.tail_num} = ${aircraft.tail_num}
-      relationship: many_to_one
-  
-    - join: carriers
-      type: left_outer
-      sql_on: ${flights.carrier} = ${carriers.code}
-      relationship: many_to_one
+# - explore: flights
+#   extends: aircraft
+#   joins: 
+#   
+#     - join: aircraft
+#       type: left_outer
+#       sql_on: ${flights.tail_num} = ${aircraft.tail_num}
+#       relationship: many_to_one
+#   
+#     - join: carriers
+#       type: left_outer
+#       sql_on: ${flights.carrier} = ${carriers.code}
+#       relationship: many_to_one
       
-    - join: flight_origin
-      from: airports
-      type: left_outer
-      sql_on: ${flights.origin} = ${aircraft_origin.code}
-      relationship: one_to_one
-      fields: [full_name, city, state, code]
-    
-    - join: flight_destination
-      from: airports
-      type: left_outer
-      sql_on: ${flights.destination} = ${aircraft_destination.code}
-      relationship: one_to_one
-      fields: [full_name, city, state, code]
+#     - join: flight_origin
+#       from: airports
+#       type: left_outer
+#       sql_on: ${flights.origin} = ${aircraft_origin.code}
+#       relationship: one_to_one
+#       fields: [full_name, city, state, code]
+#     
+#     - join: flight_destination
+#       from: airports
+#       type: left_outer
+#       sql_on: ${flights.destination} = ${aircraft_destination.code}
+#       relationship: one_to_one
+#       fields: [full_name, city, state, code]
 
 
 

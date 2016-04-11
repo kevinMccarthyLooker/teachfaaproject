@@ -114,11 +114,11 @@
 
 
   - dimension: hired_year
-    type: int
+    type: number
     sql: ${TABLE}.hired_year
     
   - dimension: years_employed
-    type: int
+    type: number
     sql: coalesce(cast(extract(year from current_date) - ${hired_year} as decimal),0)
     
 ##  MEASURES  ##
