@@ -37,7 +37,6 @@
     
 ####################### TRAINING FIELDS ############################
 
-
   - dimension: 1_distance
     type: number
     sql: ${TABLE}.distance
@@ -89,8 +88,8 @@
     
   - measure: 1_percentage_long_flights
     type: number
-    value_format: '0.0\%'
-    sql: 100.00*${1_count_long_flight}/NULLIF(${1_count}, 0)
+    value_format: '0.0%'
+    sql: 1.00*${1_count_long_flight}/NULLIF(${1_count}, 0)
     
   - dimension: 1_aircraft_years_in_service
     type: number
