@@ -11,7 +11,6 @@
     hidden: true
     type: number
     sql: ${TABLE}.arr_delay
-
   - dimension_group: arrival
     type: time
     timeframes: [time, date, week, month, year]
@@ -83,12 +82,12 @@
   - measure: 1_percentage_long_flight_distance
     type: number
     value_format: '0.0%'
-    sql: 1.00*${1_total_long_flight_distance}/NULLIF(${1_total_distance}, 0)
+    sql: 1.0*${1_total_long_flight_distance}/NULLIF(${1_total_distance}, 0)
     
   - measure: 1_percentage_long_flights
     type: number
     value_format: '0.0%'
-    sql: 1.00*${1_count_long_flight}/NULLIF(${1_count}, 0)
+    sql: 1.0*${1_count_long_flight}/NULLIF(${1_count}, 0)
     
   - dimension: 1_aircraft_years_in_service
     type: number
