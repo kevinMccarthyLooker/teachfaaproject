@@ -1,6 +1,9 @@
+
+
 - view: flights
   sql_table_name: public.flights
   fields:
+  
   - dimension: id2
     primary_key: true
     hidden: true
@@ -11,6 +14,7 @@
     hidden: true
     type: number
     sql: ${TABLE}.arr_delay
+    
   - dimension_group: arrival
     type: time
     timeframes: [time, date, week, month, year]
@@ -100,7 +104,7 @@
     
   - dimension_group: 1_depart
     type: time
-    timeframes: [time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week, month_num, month, year, quarter, quarter_of_year]
+    timeframes: [raw, time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week, month_num, month, year, quarter, quarter_of_year]
     sql: ${TABLE}.dep_time
       
 #################################################################################
@@ -133,8 +137,6 @@
       OnTime: ${TABLE}.arr_delay BETWEEN -10 and 10
       Late: ${TABLE}.arr_delay > 10
       else: Early
-    
-
     
   
   - measure: cancelled_count
