@@ -49,7 +49,6 @@
     
   - measure: 1_average_distance
     type: average
-    value_format_name: decimal_3
     sql: ${1_distance}
     
   - measure: 1_count
