@@ -5,7 +5,7 @@
   - dimension: id
     primary_key: true
     hidden: true
-    type: int
+    type: number
     sql: ${TABLE}.id
 
   - dimension: accident_number

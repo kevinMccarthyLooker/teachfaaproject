@@ -29,7 +29,6 @@
     
   - dimension: distance_per_flight
     type: number
-    decimals: 2
     sql: 1.0 * ${lifetime_distance}/NULLIF(${lifetime_flights},0)
     
   - dimension: lifetime_distance_tier
