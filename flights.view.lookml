@@ -1,6 +1,7 @@
 
 
 - view: flights
+  sql_table_name: flights
   fields:
   
   - dimension: id2
