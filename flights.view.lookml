@@ -1,8 +1,8 @@
 
+
 - view: flights
   sql_table_name: flights
   fields:
-  
   
   - dimension: id2
     primary_key: true
@@ -58,7 +58,6 @@
   - measure: 1_count_distance
     type: count_distinct
     sql: ${1_distance}
-    drill_fields: detail*
     
   - dimension: 1_distance_tiered
     type: tier
