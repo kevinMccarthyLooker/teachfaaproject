@@ -1,4 +1,3 @@
-
 - view: aircraft_flight_facts
   derived_table:
     sortkeys: [tail_num]
@@ -10,6 +9,7 @@
       , COUNT(*) AS lifetime_flights
       FROM ontime AS f
       GROUP BY tail_num
+
 
   fields:
   
