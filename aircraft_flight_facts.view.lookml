@@ -1,6 +1,7 @@
 - view: aircraft_flight_facts
   derived_table:
     sortkeys: [tail_num]
+    distribution_style: EVEN
     sql_trigger_value: select current_date
     sql: |
       SELECT
