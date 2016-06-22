@@ -11,8 +11,8 @@
       FROM ontime AS f
       GROUP BY tail_num
 
-
   fields:
+  
   
   - dimension: tail_num
     primary_key: true
