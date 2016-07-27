@@ -3,13 +3,13 @@
   sql_table_name: flights
   fields:
   
+  
   - dimension: id2
     primary_key: true
     hidden: true
     type: number
     sql: ${TABLE}.id2
     
-
   - dimension: arrival_delay
     hidden: true
     type: number
