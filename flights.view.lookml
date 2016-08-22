@@ -3,7 +3,6 @@
   sql_table_name: flights
   fields:
   
-  
   - dimension: id2
     primary_key: true
     hidden: true
@@ -67,6 +66,7 @@
     
   - dimension: 1_is_long_flight
     type: yesno
+    description: 'this is a description'
     sql: ${1_distance} > 1000
     
   - measure: 1_total_long_flight_distance
