@@ -17,10 +17,10 @@
       sql_on: ${flights.carrier} = ${carriers.code}
       relationship: many_to_one
     
-    - join: aircraft
-      type: left_outer
-      sql_on: ${flights.tail_num} = ${aircraft.tail_num}
-      relationship: many_to_one
+#     - join: aircraft
+#       type: left_outer
+#       sql_on: ${flights.tail_num} = ${aircraft.tail_num}
+#       relationship: many_to_one
     
     - join: aircraft_flight_facts
       view_label: 'Aircraft' 
