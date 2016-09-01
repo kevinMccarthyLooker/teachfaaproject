@@ -7,7 +7,10 @@
 - explore: airports
 
 
+
+
 - explore: flights
+#   view: flights
   joins: 
     - join: carriers
       type: left_outer

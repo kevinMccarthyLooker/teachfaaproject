@@ -1,14 +1,16 @@
-
 - view: flights
   sql_table_name: flights
   fields:
   
+  
+
   
   - dimension: id2
     primary_key: true
     hidden: true
     type: number
     sql: ${TABLE}.id2
+    
     
   - dimension: arrival_delay
     hidden: true
@@ -46,6 +48,7 @@
   - measure: 1_total_distance
     type: sum
     sql: ${1_distance}
+  
     
   - measure: 1_average_distance
     type: average
@@ -66,8 +69,9 @@
     tiers: [0,100,200,400,600,800,1200,1600,3200]
     
   - dimension: 1_is_long_flight
+    description: this is awesome
     type: yesno
-    sql: ${1_distance} > 1000
+    sql: ${1_distance} > 1000  
     
   - measure: 1_total_long_flight_distance
     type: sum
@@ -99,10 +103,9 @@
     type: string
     sql: ${aircraft_origin.full_name} || ' to ' || ${aircraft_destination.full_name}
     
-    
   - dimension_group: 1_depart
     type: time
-    timeframes: [raw, time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week, month_num, month, year, quarter, quarter_of_year]
+#     timeframes: [raw, time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week, month_num, month, year, quarter, quarter_of_year]
     sql: ${TABLE}.dep_time
       
 #################################################################################
