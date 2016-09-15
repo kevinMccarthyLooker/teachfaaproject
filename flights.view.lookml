@@ -71,7 +71,9 @@
     tiers: [0,100,200,400,600,800,1200,1600,3200]
     
     
-    
+  - dimension: 1_distance_tier_labeled
+    type: string
+    sql: concat(${1_distance_tiered},' miles')
     
   - dimension: 1_is_long_flight
     type: yesno
