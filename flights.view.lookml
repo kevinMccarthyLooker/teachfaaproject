@@ -9,8 +9,8 @@
     sql: ${TABLE}.id2
     
   - dimension: arrival_delay
-#     hidden: true
     type: number
+    value_format_name: decimal_0
     sql: ${TABLE}.arr_delay
     
   - dimension_group: arrival
@@ -29,6 +29,7 @@
   - dimension: departure_delay
     hidden: true
     type: number
+    value_format_name: decimal_0
     sql: ${TABLE}.dep_delay
 
   - dimension: destination
@@ -124,6 +125,7 @@
 
   - dimension: flight_time
     type: number
+    value_format_name: decimal_0
     sql: ${TABLE}.flight_time
 
   - dimension: origin
@@ -172,11 +174,13 @@
 # Hidden For Now 
 
 #   - dimension: taxi_in
-#     type: int
+#     type: number
+# value_format_name: decimal_0
 #     sql: ${TABLE}.taxi_in
 # 
 #   - dimension: taxi_out
-#     type: int
+#     type: number
+# value_format_name: decimal_0
 #     sql: ${TABLE}.taxi_out
 
 # THIS A SAMPLE TO SHOW HOW TEMPLATED FILTERS WORK IN DIMENSIONS
