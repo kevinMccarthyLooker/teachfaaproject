@@ -9,6 +9,12 @@
     value_format: decimal_0
     sql: ${TABLE}.id
 
+  - dimension_group: active_date
+    type: time
+    timeframes: [date, week, month, year]
+    convert_tz: false
+    sql: CASE WHEN ${TABLE}.act_date = '' THEN to_date('1970-01-01', 'YYYY-MM-DD') else to_date(${TABLE}.act_date, 'MM/YYYY') END
+    
   - dimension: act_date
     description: 'Date this airport became active, Default is 01/1970'
     type: string
@@ -143,4 +149,69 @@
   - measure: avg_elevation
     type: average
     sql: ${elevation}
+
+##############################################################
+# THIS IS A DERIVED TABLE TO SAMPLE HOW TEMPLATED FILTERS WORK
+##############################################################
+
+# - explore: airport_facts 
+- view: airport_facts
+  derived_table:
+    sql: |
+      SELECT 
+        airports.code AS code,
+        airports.state AS state,
+        airports.county AS county,
+        airports.city AS city,
+        airports.full_name AS full_name,
+        DATE(CASE WHEN airports.act_date = '' THEN to_date('1970-01-01', 'YYYY-MM-DD') else to_date(airports.act_date, 'MM/YYYY') END) AS active
+      FROM public.airports AS airports
+      WHERE {% condition state %} airports.state {% endcondition %}
+        AND {% condition date %} to_date(airports.act_date, 'MM/YYYY') {% endcondition %}
+      GROUP BY 1,2,3,4,5,6
+
+  fields:
+
+# FILTER FIELDS
+
+  - filter: state
+    type: string
+    suggest_dimension: airports_state
+  
+  - filter: date
+    label: 'Date Airport Became Active'
+    type: date
+
+# REGULAR FIELDS
+
+  - dimension: airports_code
+    type: string
+    sql: ${TABLE}.code
+
+  - dimension: airports_state
+    type: string
+    sql: ${TABLE}.state
+    
+  - dimension: airports_county
+    type: string
+    sql: ${TABLE}.county
+    
+  - dimension: airports_city
+    type: string
+    sql: ${TABLE}.city
+
+  - dimension: airports_full_name
+    type: string
+    sql: ${TABLE}.full_name
+
+  - dimension_group: airports_active
+    type: time
+    timeframes: [date, month, year]
+    sql: ${TABLE}.active
+
+  - measure: count
+    type: count
+    
+    
+
 

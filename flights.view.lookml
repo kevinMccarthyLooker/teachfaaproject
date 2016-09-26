@@ -2,15 +2,14 @@
   sql_table_name: flights
   fields:
   
-  - dimension: id2
+  - dimension: id
     primary_key: true
     hidden: true
     type: number
     sql: ${TABLE}.id2
     
-    
   - dimension: arrival_delay
-    hidden: true
+#     hidden: true
     type: number
     sql: ${TABLE}.arr_delay
     
@@ -35,12 +34,10 @@
   - dimension: destination
     type: string
     sql: ${TABLE}.destination
-    
+
 ####################### TRAINING FIELDS ############################
 
   - dimension: 1_distance
-    label: 1_distancesaresweet
-    description: this is a description
     type: number
     sql: ${TABLE}.distance
 
@@ -67,7 +64,7 @@
   - dimension: 1_distance_tiered
     type: tier
     sql: ${1_distance}
-    style: integer #comment
+    style: integer 
     tiers: [0,100,200,400,600,800,1200,1600,3200]
     
     
@@ -77,7 +74,6 @@
     
   - dimension: 1_is_long_flight
     type: yesno
-    description: this is awesome
     sql: ${1_distance} > 1000
     
   - measure: 1_total_long_flight_distance
@@ -88,7 +84,6 @@
       
   - measure: 1_count_long_flight
     type: count
-    drill_fields: detail*
     filters:
       1_is_long_flight: Yes
     
@@ -183,6 +178,20 @@
 #   - dimension: taxi_out
 #     type: int
 #     sql: ${TABLE}.taxi_out
+
+# THIS A SAMPLE TO SHOW HOW TEMPLATED FILTERS WORK IN DIMENSIONS
+
+  - measure: variable_measure
+    type: number
+    sql: |
+      case
+        when {% condition measure_type %} 'Total Distance' {% endcondition %} then ${1_total_distance}
+        when {% condition measure_type %} 'Average Distance' {% endcondition %} then ${1_average_distance}
+        when {% condition measure_type %} 'Long Flights Distance' {% endcondition %} then ${1_total_long_flight_distance}
+      end
+
+  - filter: measure_type
+    suggestions: [Total Distance, Average Distance, Long Flights Distance]
 
 
   sets: 
