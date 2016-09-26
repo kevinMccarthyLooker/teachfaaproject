@@ -9,7 +9,7 @@
   - join: carriers
     type: left_outer
     relationship: many_to_one
-    sql_on: ${air_carrier}=${carriers.code}
+    sql_on: ${accidents.air_carrier}=${carriers.code}
 #######################################################################################################################################
 
 ## Analyze Aircraft
@@ -37,6 +37,7 @@
 
 - explore: flights
   view: flights
+  label: flights
   extends: aircraft
   joins: 
     - join: carriers
@@ -68,14 +69,9 @@
     
   
 - explore: flights_by_day
-  extends: [flights, accidents]
-  joins: 
-    - join: flight_destination
-      from: airports
-      type: left_outer
-      sql_on: ${flights.destination} = ${flight_destination.code}
-      relationship: one_to_one
-      fields: [full_name, city, state, code]
+  extends: [flights]
+  label: flights_by_day
+
     
     
     

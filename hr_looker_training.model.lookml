@@ -84,6 +84,9 @@
       8000 as salary,
       2012 as hired_year,
       'M' as gender
+      
+    sortkeys: [employee_number]
+    persist_for: 2000 hours
 
 
   fields:
