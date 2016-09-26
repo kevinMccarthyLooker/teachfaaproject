@@ -2,15 +2,6 @@
 - include: "*.view.lookml"       # include all the views
 
 
-## Analyze Accidents
-
-- explore: accidents
-  joins:
-  - join: carriers
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${accidents.air_carrier}=${carriers.code}
-#######################################################################################################################################
 
 ## Analyze Aircraft
 
@@ -35,42 +26,73 @@
 
 ## Analyze Flights, but include aircraft
 
-- explore: flights
-  view: flights
-  label: flights
-  extends: aircraft
-  joins: 
+  
+# - explore: flights
+#   view: flights
+#   label: flights
+#   extends: aircraft
+#   joins: 
+#   
+#     - join: aircraft
+#       type: left_outer
+#       sql_on: ${flights.tail_num} = ${aircraft.tail_num}
+#       relationship: many_to_one
+#   
+#     - join: carriers
+#       type: left_outer
+#       sql_on: ${flights.carrier} = ${carriers.code}
+#       relationship: many_to_one
+      
+#     - join: flight_origin
+#       from: airports
+#       type: left_outer
+#       sql_on: ${flights.origin} = ${aircraft_origin.code}
+#       relationship: one_to_one
+#       fields: [full_name, city, state, code]
+#     
+#     - join: flight_destination
+#       from: airports
+#       type: left_outer
+#       sql_on: ${flights.destination} = ${aircraft_destination.code}
+#       relationship: one_to_one
+#       fields: [full_name, city, state, code]
+
+
+
+
+## Analyze Accidents
+
+- explore: accidents
+  joins:
     - join: carriers
       type: left_outer
-      sql_on: ${flights.carrier} = ${carriers.code}
       relationship: many_to_one
-      
-    - join: flight_origin
-      from: airports
-      type: left_outer
-      sql_on: ${flights.origin} = ${flight_origin.code}
-      relationship: one_to_one
-      fields: [full_name, city, state, code]
-    
-    - join: flight_destination
-      from: airports
-      type: left_outer
-      sql_on: ${flights.destination} = ${flight_destination.code}
-      relationship: one_to_one
-      fields: [full_name, city, state, code]
+      sql_on: ${air_carrier}=${carriers.code}
+# 
+#     - join: flight_origin
+#       from: airports
+#       type: left_outer
+#       sql_on: ${flights.origin} = ${flight_origin.code}
+#       relationship: one_to_one
+#       fields: [full_name, city, state, code]
+#     
+#     - join: flight_destination
+#       from: airports
+#       type: left_outer
+#       sql_on: ${flights.destination} = ${flight_destination.code}
+#       relationship: one_to_one
+#       fields: [full_name, city, state, code]
+#######################################################################################################################################
 
-    - join: aircraft
-      type: left_outer
-      sql_on: ${flights.tail_num} = ${aircraft.tail_num}
-      relationship: many_to_one
+
   
 ###   Using Extensions, I am logically adding in the following from the "aircraft" explore
 ###   (I need to include 'aircraft' above, because here I am replacing a base table)
     
-  
-- explore: flights_by_day
-  extends: [flights]
-  label: flights_by_day
+#   
+# - explore: flights_by_day
+#   extends: [flights]
+#   label: flights_by_day
 
     
     
@@ -107,3 +129,6 @@
 #     from: airports
 #     sql_on: ${flights.destination} = ${airports.code}
 #   
+
+
+

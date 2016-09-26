@@ -9,23 +9,23 @@
 
 
   - dimension: aircraft_category_id
-    type: int
+    type: number
     sql: ${TABLE}.aircraft_category_id
 
   - dimension: aircraft_engine_type_id
-    type: int
+    type: number
     sql: ${TABLE}.aircraft_engine_type_id
 
   - dimension: aircraft_type_id
-    type: int
+    type: number
     sql: ${TABLE}.aircraft_type_id
 
   - dimension: amateur
-    type: int
+    type: number
     sql: ${TABLE}.amateur
 
   - dimension: engines
-    type: int
+    type: number
     sql: ${TABLE}.engines
 
   - dimension: manufacturer
@@ -37,15 +37,15 @@
     sql: ${TABLE}.model
 
   - dimension: seats
-    type: int
+    type: number
     sql: ${TABLE}.seats
 
   - dimension: speed
-    type: int
+    type: number
     sql: ${TABLE}.speed
 
   - dimension: weight
-    type: int
+    type: number
     sql: ${TABLE}.weight
 
   - measure: count

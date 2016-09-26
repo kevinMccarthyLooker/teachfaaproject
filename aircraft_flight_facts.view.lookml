@@ -1,7 +1,7 @@
-
 - view: aircraft_flight_facts
   derived_table:
     sortkeys: [tail_num]
+    distribution_style: EVEN
     sql_trigger_value: select current_date
     sql: |
       SELECT
@@ -13,6 +13,7 @@
 
 
   fields:
+  
   - dimension: tail_num
     primary_key: true
     hidden: true
@@ -20,16 +21,15 @@
     sql: ${TABLE}.tail_num
 
   - dimension: lifetime_distance
-    type: int
+    type: number
     sql: ${TABLE}.lifetime_distance
 
   - dimension: lifetime_flights
-    type: int
+    type: number
     sql: ${TABLE}.lifetime_flights
     
   - dimension: distance_per_flight
     type: number
-    decimals: 2
     sql: 1.0 * ${lifetime_distance}/NULLIF(${lifetime_flights},0)
     
   - dimension: lifetime_distance_tier
@@ -46,6 +46,7 @@
     type: tier
     tiers: [0,250,500,750,1000,1500]
     sql: ${distance_per_flight}
+    
 
   sets:
     detail:

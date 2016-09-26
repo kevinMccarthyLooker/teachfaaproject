@@ -26,7 +26,7 @@
     sql: ${TABLE}.aircraft_engine_code
 
   - dimension: aircraft_engine_type_id
-    type: int
+    type: number
     sql: ${TABLE}.aircraft_engine_type_id
 
   - dimension: aircraft_model_code
@@ -102,7 +102,7 @@
     sql: ${TABLE}.status_code
 
   - dimension: year_built
-    type: int
+    type: number
     sql: ${TABLE}.year_built
 
 
