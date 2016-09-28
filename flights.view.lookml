@@ -39,18 +39,12 @@
 ####################### TRAINING FIELDS ############################
 
   - dimension: 1_distance
-    label: 1_distancesaresweet
-    description: this is a description
     type: number
     sql: ${TABLE}.distance
 
   - measure: 1_total_distance
     type: sum
     sql: ${1_distance}
-  
-#   - measure: 1_total_distance
-#     type: number
-#     sql: sum(${1_distance})
     
   - measure: 1_average_distance
     type: average
