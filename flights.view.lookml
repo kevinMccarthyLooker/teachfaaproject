@@ -8,7 +8,7 @@
     type: number
     sql: ${TABLE}.id2
     
-  - dimension: arrival_delay
+  - dimension: arrival_delay 
     type: number
     value_format_name: decimal_0
     sql: ${TABLE}.arr_delay
@@ -64,11 +64,6 @@
     style: integer 
     tiers: [0,100,200,400,600,800,1200,1600,3200]
     
-    
-  - dimension: 1_distance_tier_labeled
-    type: string
-    sql: concat(${1_distance_tiered},' miles')
-    
   - dimension: 1_is_long_flight
     type: yesno
     sql: ${1_distance} > 1000
@@ -93,7 +88,7 @@
     type: number
     value_format: '0.0%'
     sql: 1.0*${1_count_long_flight}/NULLIF(${1_count}, 0)
-    
+  
   - dimension: 1_aircraft_years_in_service
     type: number
     sql: extract(year from ${1_depart_date}) - ${aircraft.year_built}
