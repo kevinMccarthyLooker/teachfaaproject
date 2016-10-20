@@ -2,6 +2,7 @@
   sql_table_name: flights
   fields:
   
+  
   - dimension: id
     primary_key: true
     hidden: true
