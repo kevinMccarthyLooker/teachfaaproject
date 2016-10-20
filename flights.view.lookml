@@ -15,7 +15,7 @@
     
   - dimension_group: arrival
     type: time
-    timeframes: [time, date, week, month, year]
+#     timeframes: [time, date, week, month, year, raw]
     sql: ${TABLE}.arr_time
 
   - dimension: cancelled
