@@ -5,8 +5,8 @@
 
 - explore: hr_looker_training_set
 - view: hr_looker_training_set
-  distribution_style: ALL
   derived_table:
+    distribution_style: all
     sql: |
       select
       1 as employee_number,
