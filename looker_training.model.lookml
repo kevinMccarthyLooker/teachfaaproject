@@ -5,6 +5,7 @@
 
 - explore: hr_looker_training_set
 - view: hr_looker_training_set
+  distribution_style: ALL
   derived_table:
     sql: |
       select
