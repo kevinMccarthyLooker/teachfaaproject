@@ -2,7 +2,7 @@ view: ontime {
   sql_table_name: public.ontime ;;
 
   dimension: arr_delay {
-    type: int
+    type: number
     sql: ${TABLE}.arr_delay ;;
   }
 
@@ -23,7 +23,7 @@ view: ontime {
   }
 
   dimension: dep_delay {
-    type: int
+    type: number
     sql: ${TABLE}.dep_delay ;;
   }
 
@@ -39,7 +39,7 @@ view: ontime {
   }
 
   dimension: distance {
-    type: int
+    type: number
     sql: ${TABLE}.distance ;;
   }
 
@@ -54,7 +54,7 @@ view: ontime {
   }
 
   dimension: flight_time {
-    type: int
+    type: number
     sql: ${TABLE}.flight_time ;;
   }
 
@@ -74,12 +74,12 @@ view: ontime {
   }
 
   dimension: taxi_in {
-    type: int
+    type: number
     sql: ${TABLE}.taxi_in ;;
   }
 
   dimension: taxi_out {
-    type: int
+    type: number
     sql: ${TABLE}.taxi_out ;;
   }
 

@@ -2,7 +2,7 @@ view: flights_by_day {
   sql_table_name: public.flights_by_day ;;
 
   dimension: arr_delay {
-    type: int
+    type: number
     sql: ${TABLE}.arr_delay ;;
   }
 
@@ -23,7 +23,7 @@ view: flights_by_day {
   }
 
   dimension: dep_delay {
-    type: int
+    type: number
     sql: ${TABLE}.dep_delay ;;
   }
 
@@ -46,7 +46,7 @@ view: flights_by_day {
   }
 
   dimension: distance {
-    type: int
+    type: number
     sql: ${TABLE}.distance ;;
   }
 
@@ -61,7 +61,7 @@ view: flights_by_day {
   }
 
   dimension: flight_time {
-    type: int
+    type: number
     sql: ${TABLE}.flight_time ;;
   }
 
@@ -81,12 +81,12 @@ view: flights_by_day {
   }
 
   dimension: taxi_in {
-    type: int
+    type: number
     sql: ${TABLE}.taxi_in ;;
   }
 
   dimension: taxi_out {
-    type: int
+    type: number
     sql: ${TABLE}.taxi_out ;;
   }
 

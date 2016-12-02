@@ -41,7 +41,7 @@ view: aircraft {
   #     sql: ${TABLE}.aircraft_serial
   #
   #   - dimension: aircraft_type_id
-  #     type: int
+  #     type: number
   #     sql: ${TABLE}.aircraft_type_id
   #
   #   - dimension_group: cert_issue
@@ -92,7 +92,7 @@ view: aircraft {
   #     sql: ${TABLE}.region
   #
   #   - dimension: registrant_type_id
-  #     type: int
+  #     type: number
   #     sql: ${TABLE}.registrant_type_id
   #
   #   - dimension: state
