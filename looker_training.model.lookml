@@ -4,6 +4,8 @@
 - include: "*.dashboard.lookml"  # include all dashboards in this project
 
 - explore: hr_looker_training_set
+  label: 'HR Looker Training Set'
+  
 - view: hr_looker_training_set
   derived_table:
     distribution_style: all
