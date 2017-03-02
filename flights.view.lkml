@@ -1,5 +1,5 @@
-
 view: flights {
+
 
   sql_table_name: flights ;;
   dimension: id {
