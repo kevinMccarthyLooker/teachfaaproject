@@ -1,3 +1,4 @@
+
 view: flights {
   sql_table_name: flights ;;
   dimension: id {
@@ -6,7 +7,6 @@ view: flights {
     type: number
     sql: ${TABLE}.id2 ;;
   }
-
 
   dimension: arrival_delay {
     type: number
