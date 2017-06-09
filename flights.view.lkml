@@ -1,7 +1,8 @@
 
 view: flights {
   sql_table_name: flights ;;
-  dimension: id {
+
+ dimension: id {
     primary_key: yes
     hidden: yes
     type: number
@@ -144,6 +145,26 @@ view: flights {
     type: number
     value_format_name: decimal_0
     sql: ${TABLE}.flight_time ;;
+  }
+
+  dimension: flight_time_tiered {
+    type: tier
+    sql: ${flight_time} ;;
+    style: integer
+    tiers: [10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,350,360]
+  }
+
+  dimension: 1_distance_tiered_2 {
+    type: tier
+    sql: ${1_distance} ;;
+    style: integer
+    tiers: [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600, 2800, 3000]
+  }
+
+  measure: log_count_flights {
+    type: number
+    sql: log(count(distinct ${id})) ;;
+    value_format_name: decimal_2
   }
 
   dimension: origin {
