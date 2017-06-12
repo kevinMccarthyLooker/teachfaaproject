@@ -346,7 +346,7 @@ view: fruit_basket {
        ;;
   }
 
-  dimension: fruit_name {
+  dimension: fruit_type {
     type: string
     sql: ${TABLE}.fruit_name ;;
   }
