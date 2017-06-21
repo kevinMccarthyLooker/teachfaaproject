@@ -402,4 +402,10 @@ view: fruit_basket {
     sql: ${price} ;;
   }
 
+  measure: average_price_per_pound{
+    type: average
+    value_format_name: usd
+    sql: ${price_per_pound} ;;
+  }
+
 }
