@@ -3,8 +3,8 @@ connection: "red_flight"
 include: "*.view"
 # include all dashboards in this project
 include: "*.dashboard"
-
 explore: airports {}
+
 
 explore: flights {
   join: carriers {
