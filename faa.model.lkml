@@ -26,6 +26,11 @@ explore: flights {
     relationship: one_to_one
   }
 
+  join: aircraft_models {
+    sql_on: ${aircraft.aircraft_model_code} = ${aircraft_models.aircraft_model_code} ;;
+    relationship: many_to_one
+  }
+
   join: aircraft_origin {
     from: airports
     type: left_outer
