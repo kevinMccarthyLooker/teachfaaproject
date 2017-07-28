@@ -3,8 +3,8 @@ connection: "red_flight"
 include: "*.view"
 # include all dashboards in this project
 include: "*.dashboard"
-explore: airports {}
 
+explore: airports {}
 
 explore: flights {
   join: carriers {
@@ -47,19 +47,3 @@ explore: flights {
     fields: [full_name, city, state, code]
   }
 }
-
-# examples of filtering explores
-#
-#   explore: flights_data {
-#   from: flights
-#   sql_always_where: dep_time > '1960-01-01'
-#   sql_always_having: count < 10000
-#   always_filter
-#   conditionaly_filter:
-#   access_filter_fields
-#   join: carriers {
-#     type: left_outer
-#     sql_on: ${flights.carrier} = ${carriers.code} ;;
-#     relationship: many_to_one
-#   }
-# }

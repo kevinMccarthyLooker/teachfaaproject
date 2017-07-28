@@ -1,17 +1,18 @@
-
 view: aircraft_flight_facts {
   derived_table: {
+
     sortkeys: ["tail_num"]
     distribution_style: even
     sql_trigger_value: select current_date ;;
-    sql: SELECT
-      f.tail_num AS tail_num
-      , SUM(f.distance) AS lifetime_distance
-      , COUNT(*) AS lifetime_flights
-      FROM ontime AS f
-      GROUP BY tail_num
-       ;;
+
+    sql: SELECT tail_num AS tail_num
+               ,SUM(distance) AS lifetime_distance
+               ,COUNT(*) AS lifetime_flights
+         FROM ontime
+         GROUP BY tail_num
+         ;;
   }
+
   dimension: tail_num {
     primary_key: yes
     hidden: yes
@@ -52,7 +53,13 @@ view: aircraft_flight_facts {
     sql: ${distance_per_flight} ;;
   }
 
-  set: detail {
-    fields: [tail_num, lifetime_distance, lifetime_flights]
-  }
+#   measure: count {
+#     type: count
+#     drill_fields: [detail*]
+#   }
+#
+#   set: detail {
+#     fields: [tail_num, lifetime_distance, lifetime_flights]
+#   }
+
 }

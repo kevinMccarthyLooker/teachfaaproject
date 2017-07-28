@@ -17,7 +17,7 @@ view: flights {
 
   dimension_group: arrival {
     type: time
-    #     timeframes: [time, date, week, month, year, raw]
+    timeframes: [time, date, week, month, year, raw]
     sql: ${TABLE}.arr_time ;;
   }
 
@@ -125,7 +125,7 @@ view: flights {
 
   dimension_group: 1_depart {
     type: time
-    timeframes: [raw, time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week, month_num, month, year, quarter, quarter_of_year]
+    timeframes: [time, date, week, month, year, raw]
     sql: ${TABLE}.dep_time ;;
   }
 
@@ -214,7 +214,7 @@ view: flights {
 
     filters: {
       field: cancelled
-      value: "Yes"
+      value: "Y"
     }
   }
 
@@ -224,49 +224,8 @@ view: flights {
 
     filters: {
       field: cancelled
-      value: "No"
+      value: "N"
     }
-  }
-
-  #   - measure: percent_cancelled
-  #     type: number
-  #     decimals: 2
-  #     sql: 100.0 * ${cancelled_count}/${flight_count}
-  #     drill_fields: detail
-
-  #   - measure: percent_complete
-  #     type: number
-  #     decimals: 2
-  #     sql: 1.0 - ${percent_cancelled}
-  #     drill_fields: detail
-
-
-  # Hidden For Now
-
-  #   - dimension: taxi_in
-  #     type: number
-  # value_format_name: decimal_0
-  #     sql: ${TABLE}.taxi_in
-  #
-  #   - dimension: taxi_out
-  #     type: number
-  # value_format_name: decimal_0
-  #     sql: ${TABLE}.taxi_out
-
-  # THIS A SAMPLE TO SHOW HOW TEMPLATED FILTERS WORK IN DIMENSIONS
-
-  measure: variable_measure {
-    type: number
-    sql: case
-        when {% condition measure_type %} 'Total Distance' {% endcondition %} then ${1_total_distance}
-        when {% condition measure_type %} 'Average Distance' {% endcondition %} then ${1_average_distance}
-        when {% condition measure_type %} 'Long Flights Distance' {% endcondition %} then ${1_total_long_flight_distance}
-      end
-       ;;
-  }
-
-  filter: measure_type {
-    suggestions: ["Total Distance", "Average Distance", "Long Flights Distance"]
   }
 
   set: detail {

@@ -2,24 +2,28 @@ view: aircraft {
   sql_table_name: public.aircraft ;;
 
   dimension: tail_num {
-    primary_key: yes
     type: string
+    primary_key: yes
     sql: ${TABLE}.tail_num ;;
   }
 
-  #   - dimension: address1
-  #     type: string
-  #     sql: ${TABLE}.address1
-  #
-  #   - dimension: address2
-  #     type: string
-  #     sql: ${TABLE}.address2
-  #
-  #   - dimension_group: air_worth
-  #     type: time
-  #     timeframes: [date, week, month]
-  #     convert_tz: false
-  #     sql: ${TABLE}.air_worth_date
+  dimension: address1 {
+    type: string
+    sql: ${TABLE}.address1 ;;
+  }
+
+  dimension: address2 {
+    type: string
+    sql: ${TABLE}.address2 ;;
+  }
+
+  dimension_group: air_worth {
+    type: time
+    timeframes: [time, date, week, month, year, raw]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.air_worth_date ;;
+  }
 
   dimension: aircraft_engine_code {
     type: string
@@ -36,46 +40,57 @@ view: aircraft {
     sql: ${TABLE}.aircraft_model_code ;;
   }
 
-  #   - dimension: aircraft_serial
-  #     type: string
-  #     sql: ${TABLE}.aircraft_serial
-  #
-  #   - dimension: aircraft_type_id
-  #     type: number
-  #     sql: ${TABLE}.aircraft_type_id
-  #
-  #   - dimension_group: cert_issue
-  #     type: time
-  #     timeframes: [date, week, month]
-  #     convert_tz: false
-  #     sql: ${TABLE}.cert_issue_date
+  dimension: aircraft_serial {
+    type: string
+    sql: ${TABLE}.aircraft_serial ;;
+  }
+
+  dimension: aircraft_type_id {
+    type: number
+    sql: ${TABLE}.aircraft_type_id ;;
+  }
+
+  dimension_group: cert_issue {
+    type: time
+    timeframes: [time, date, week, month, year, raw]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.cert_issue_date ;;
+  }
 
   dimension: certification {
     type: string
     sql: ${TABLE}.certification ;;
   }
 
-  #   - dimension: city
-  #     type: string
-  #     sql: ${TABLE}.city
-  #
-  #   - dimension: country
-  #     type: string
-  #     sql: ${TABLE}.country
-  #
-  #   - dimension: county
-  #     type: string
-  #     sql: ${TABLE}.county
-  #
-  #   - dimension: fract_owner
-  #     type: string
-  #     sql: ${TABLE}.fract_owner
-  #
-  #   - dimension_group: last_action
-  #     type: time
-  #     timeframes: [date, week, month]
-  #     convert_tz: false
-  #     sql: ${TABLE}.last_action_date
+  dimension: city {
+    type: string
+    sql: ${TABLE}.city ;;
+  }
+
+  dimension: country {
+    type: string
+    map_layer_name: countries
+    sql: ${TABLE}.country ;;
+  }
+
+  dimension: county {
+    type: string
+    sql: ${TABLE}.county ;;
+  }
+
+  dimension: fract_owner {
+    type: string
+    sql: ${TABLE}.fract_owner ;;
+  }
+
+  dimension_group: last_action {
+    type: time
+    timeframes: [time, date, week, month, year, raw]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.last_action_date ;;
+  }
 
   dimension: mode_s_code {
     type: string
@@ -87,21 +102,20 @@ view: aircraft {
     sql: ${TABLE}.name ;;
   }
 
-  #   - dimension: region
-  #     type: string
-  #     sql: ${TABLE}.region
-  #
-  #   - dimension: registrant_type_id
-  #     type: number
-  #     sql: ${TABLE}.registrant_type_id
-  #
-  #   - dimension: state
-  #     type: string
-  #     sql: ${TABLE}.state
-  #
-  #   - dimension: zip
-  #     type: string
-  #     sql: ${TABLE}.zip
+  dimension: region {
+    type: string
+    sql: ${TABLE}.region ;;
+  }
+
+  dimension: registrant_type_id {
+    type: number
+    sql: ${TABLE}.registrant_type_id ;;
+  }
+
+  dimension: state {
+    type: string
+    sql: ${TABLE}.state ;;
+  }
 
   dimension: status_code {
     type: string
@@ -111,6 +125,11 @@ view: aircraft {
   dimension: year_built {
     type: number
     sql: ${TABLE}.year_built ;;
+  }
+
+  dimension: zip {
+    type: zipcode
+    sql: ${TABLE}.zip ;;
   }
 
   measure: count {
