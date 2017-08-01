@@ -382,6 +382,7 @@ view: fruit_basket {
 
   measure: average_weight {
     type: average
+    value_format_name: decimal_2
     sql: ${weight} ;;
   }
 
@@ -393,6 +394,7 @@ view: fruit_basket {
 
   measure: total_weight {
     type: sum
+    value_format_name: decimal_2
     sql: ${weight} ;;
   }
 
@@ -406,6 +408,16 @@ view: fruit_basket {
     type: average
     value_format_name: usd
     sql: ${price_per_pound} ;;
+  }
+
+  measure: count_types {
+    type: count_distinct
+    sql: ${fruit_type} ;;
+  }
+
+  measure: count_color {
+    type: count_distinct
+    sql: ${color} ;;
   }
 
 }
