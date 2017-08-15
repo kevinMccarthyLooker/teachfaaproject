@@ -48,9 +48,15 @@ view: airports {
     sql: ${TABLE}.city ;;
   }
 
-  #   - dimension: cntl_twr
-  #     type: string
-  #     sql: ${TABLE}.cntl_twr
+#   dimension: cntl_twr {
+#     type: string
+#     sql: ${TABLE}.cntl_twr ;;
+#   }
+
+  dimension: control_tower {
+    type: yesno
+    sql: ${TABLE}.cntl_twr = 'Y' ;;
+  }
 
   dimension: code {
     type: string
@@ -168,6 +174,14 @@ view: airports {
   measure: avg_elevation {
     type: average
     sql: ${elevation} ;;
+  }
+
+  measure: with_control_tower_count {
+    type: count
+    filters: {
+        field: control_tower
+        value: "Yes"
+    }
   }
 }
 
