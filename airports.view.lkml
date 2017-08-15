@@ -171,7 +171,7 @@ view: airports {
     sql: ${elevation} ;;
   }
 
-  measure: avg_elevation {
+  measure: average_elevation {
     type: average
     sql: ${elevation} ;;
   }
