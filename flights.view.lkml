@@ -1,6 +1,6 @@
-
 view: flights {
   sql_table_name: flights ;;
+
 
  dimension: id {
     primary_key: yes
