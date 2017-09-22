@@ -1,7 +1,6 @@
 view: flights {
   sql_table_name: flights ;;
 
-
  dimension: id {
     primary_key: yes
     hidden: yes
@@ -9,29 +8,120 @@ view: flights {
     sql: ${TABLE}.id2 ;;
   }
 
+  dimension: distance {
+    type: number
+    sql: ${TABLE}.distance ;;
+  }
+
+  measure: total_distance {
+    type: sum
+    sql: ${distance} ;;
+  }
+
+  measure: average_distance {
+    type: average
+    sql: ${distance} ;;
+  }
+
+  measure: count {
+    type: count
+    drill_fields: [detail*]
+  }
+
+  measure: count_distance {
+    type: count_distinct
+    sql: ${distance} ;;
+  }
+
+  dimension: distance_tiered {
+    type: tier
+    sql: ${distance} ;;
+    style: integer
+    tiers: [0, 100, 200, 400, 600, 800, 1200, 1600, 3200]
+  }
+
+  dimension: is_long_flight {
+    type: yesno
+    sql: ${distance} > 1000 ;;
+  }
+
+  measure: total_long_flight_distance {
+    type: sum
+    sql: ${distance} ;;
+
+    filters: {
+      field: is_long_flight
+      value: "Yes"
+    }
+  }
+
+  measure: count_long_flight {
+    type: count
+
+    filters: {
+      field: is_long_flight
+      value: "Yes"
+    }
+  }
+
+  measure: percentage_long_flight_distance {
+    type: number
+    value_format: "0.0%"
+    sql: 1.0*${total_long_flight_distance}/NULLIF(${total_distance}, 0) ;;
+  }
+
+  measure: percentage_long_flights {
+    type: number
+    value_format: "0.0%"
+    sql: 1.0*${count_long_flight}/NULLIF(${count}, 0) ;;
+  }
+
+  dimension: aircraft_years_in_service {
+    type: number
+    sql: extract(year from ${depart_date}) - ${aircraft.year_built} ;;
+  }
+
+  dimension: origin_and_destination {
+    type: string
+    sql: ${aircraft_origin.full_name}  || ' to ' || ${aircraft_destination.full_name} ;;
+  }
+
+  dimension_group: depart {
+    type: time
+    timeframes: [time, date, week, month, year, raw]
+    sql: ${TABLE}.dep_time ;;
+  }
+
+########################################################################################
+
   dimension: arrival_delay {
+    view_label: "Flights Details"
     type: number
     value_format_name: decimal_0
     sql: ${TABLE}.arr_delay ;;
   }
 
   dimension_group: arrival {
+    view_label: "Flights Details"
     type: time
     timeframes: [time, date, week, month, year, raw]
     sql: ${TABLE}.arr_time ;;
   }
 
   dimension: cancelled {
+    view_label: "Flights Details"
     type: string
     sql: ${TABLE}.cancelled ;;
   }
 
   dimension: carrier {
+    view_label: "Flights Details"
     type: string
     sql: ${TABLE}.carrier ;;
   }
 
   dimension: departure_delay {
+    view_label: "Flights Details"
     hidden: yes
     type: number
     value_format_name: decimal_0
@@ -39,145 +129,59 @@ view: flights {
   }
 
   dimension: destination {
+    view_label: "Flights Details"
     type: string
     sql: ${TABLE}.destination ;;
   }
 
-  ####################### TRAINING FIELDS ############################
-
-  dimension: 1_distance {
-    type: number
-    sql: ${TABLE}.distance ;;
-  }
-
-  measure: 1_total_distance {
-    type: sum
-    sql: ${1_distance} ;;
-  }
-
-  measure: 1_average_distance {
-    type: average
-    sql: ${1_distance} ;;
-  }
-
-  measure: 1_count {
-    type: count
-    drill_fields: [detail*]
-  }
-
-  measure: 1_count_distance {
-    type: count_distinct
-    sql: ${1_distance} ;;
-  }
-
-  dimension: 1_distance_tiered {
-    type: tier
-    sql: ${1_distance} ;;
-    style: integer
-    tiers: [0, 100, 200, 400, 600, 800, 1200, 1600, 3200]
-  }
-
-  dimension: 1_is_long_flight {
-    type: yesno
-    sql: ${1_distance} > 1000 ;;
-  }
-
-  measure: 1_total_long_flight_distance {
-    type: sum
-    sql: ${1_distance} ;;
-
-    filters: {
-      field: 1_is_long_flight
-      value: "Yes"
-    }
-  }
-
-  measure: 1_count_long_flight {
-    type: count
-
-    filters: {
-      field: 1_is_long_flight
-      value: "Yes"
-    }
-  }
-
-  measure: 1_percentage_long_flight_distance {
-    type: number
-    value_format: "0.0%"
-    sql: 1.0*${1_total_long_flight_distance}/NULLIF(${1_total_distance}, 0) ;;
-  }
-
-  measure: 1_percentage_long_flights {
-    type: number
-    value_format: "0.0%"
-    sql: 1.0*${1_count_long_flight}/NULLIF(${1_count}, 0) ;;
-  }
-
-  dimension: 1_aircraft_years_in_service {
-    type: number
-    sql: extract(year from ${1_depart_date}) - ${aircraft.year_built} ;;
-  }
-
-  dimension: 1_origin_and_destination {
-    type: string
-    sql: ${aircraft_origin.full_name}  || ' to ' || ${aircraft_destination.full_name} ;;
-  }
-
-  dimension_group: 1_depart {
-    type: time
-    timeframes: [time, date, week, month, year, raw]
-    sql: ${TABLE}.dep_time ;;
-  }
-
-  #################################################################################
-
   dimension: diverted {
+    view_label: "Flights Details"
     type: string
     sql: ${TABLE}.diverted ;;
   }
 
   dimension: flight_num {
+    view_label: "Flights Details"
     type: string
     sql: ${TABLE}.flight_num ;;
   }
 
   dimension: flight_time {
+    view_label: "Flights Details"
     type: number
     value_format_name: decimal_0
     sql: ${TABLE}.flight_time ;;
   }
 
   dimension: flight_time_tiered {
+    view_label: "Flights Details"
     type: tier
     sql: ${flight_time} ;;
     style: integer
     tiers: [10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,350,360]
   }
 
-  dimension: 1_distance_tiered_2 {
-    type: tier
-    sql: ${1_distance} ;;
-    style: integer
-    tiers: [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600, 2800, 3000]
-  }
-
   measure: log_count_flights {
+    view_label: "Flights Details"
     type: number
     sql: log(count(distinct ${id})) ;;
     value_format_name: decimal_2
   }
 
   dimension: origin {
+    view_label: "Flights Details"
     type: string
     sql: ${TABLE}.origin ;;
   }
 
   dimension: tail_num {
+    view_label: "Flights Details"
     type: string
     sql: ${TABLE}.tail_num ;;
   }
 
   dimension: arrival_status {
+    view_label: "Flights Details"
     case: {
       when: {
         sql: ${TABLE}.cancelled='Y' ;;
@@ -209,6 +213,7 @@ view: flights {
   }
 
   measure: cancelled_count {
+    view_label: "Flights Details"
     type: count
     drill_fields: [detail*]
 
@@ -219,6 +224,7 @@ view: flights {
   }
 
   measure: not_cancelled_count {
+        view_label: "Flights Details"
     type: count
     drill_fields: [detail*]
 
@@ -229,7 +235,9 @@ view: flights {
   }
 
   set: detail {
-    fields: [1_distance, origin, destination, arrival_status]
+    fields: [distance, origin, destination, arrival_status]
   }
+
+
 
 }
