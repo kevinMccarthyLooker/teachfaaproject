@@ -1,4 +1,5 @@
 view: aircraft_flight_facts {
+
   derived_table: {
     sortkeys: ["tail_num"]
     distribution_style: even
@@ -11,7 +12,6 @@ view: aircraft_flight_facts {
          GROUP BY tail_num
          ;;
   }
-
 
   dimension: tail_num {
     primary_key: yes
