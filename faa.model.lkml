@@ -7,6 +7,7 @@ include: "*.dashboard"
 explore: airports {}
 
 explore: flights {
+  description: "Start here for information about flights!"
   join: carriers {
     type: left_outer
     sql_on: ${flights.carrier} = ${carriers.code} ;;
