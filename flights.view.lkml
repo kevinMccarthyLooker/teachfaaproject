@@ -8,6 +8,8 @@ view: flights {
     sql: ${TABLE}.id2 ;;
   }
 
+###################### TRAINING FIELDS ###########################
+
   dimension: distance {
     type: number
     sql: ${TABLE}.distance ;;
@@ -237,7 +239,6 @@ view: flights {
   set: detail {
     fields: [distance, origin, destination, arrival_status]
   }
-
 
 
 }
