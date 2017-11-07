@@ -90,7 +90,7 @@ view: flights {
 
   dimension_group: depart {
     type: time
-    timeframes: [time, date, week, month, year, raw]
+    timeframes: [time, date, week, month, year, day_of_week, raw]
     sql: ${TABLE}.dep_time ;;
   }
 
