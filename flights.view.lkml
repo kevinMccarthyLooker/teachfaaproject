@@ -90,7 +90,7 @@ view: flights {
 
   dimension_group: depart {
     type: time
-    timeframes: [time, date, week, month, year, day_of_week, raw]
+    timeframes: [time, date, week, month, year, day_of_week, raw,hour_of_day]
     sql: ${TABLE}.dep_time ;;
   }
 
@@ -106,7 +106,7 @@ view: flights {
   dimension_group: arrival {
     view_label: "Flights Details"
     type: time
-    timeframes: [time, date, week, month, year, raw]
+    timeframes: [time, date, week, month, year, raw, hour_of_day]
     sql: ${TABLE}.arr_time ;;
   }
 
@@ -225,6 +225,36 @@ view: flights {
     }
   }
 
+  measure: ontime_count {
+    view_label: "Flights Details"
+    type: count
+    drill_fields: [detail*]
+
+    filters: {
+      field: arrival_status
+      value: "OnTime"
+    }
+  }
+  measure: late_count {
+    view_label: "Flights Details"
+    type: count
+    drill_fields: [detail*]
+
+    filters: {
+      field: arrival_status
+      value: "Late"
+    }
+  }
+  measure: v_late_count {
+    view_label: "Flights Details"
+    type: count
+    drill_fields: [detail*]
+
+    filters: {
+      field: arrival_status
+      value: "Very Late"
+    }
+  }
   measure: not_cancelled_count {
         view_label: "Flights Details"
     type: count
@@ -235,6 +265,127 @@ view: flights {
       value: "N"
     }
   }
+  measure: diverted_count {
+    view_label: "Flights Details"
+    type: count
+    drill_fields: [detail*]
+
+    filters: {
+      field: arrival_status
+      value: "Diverted"
+    }
+  }
+  measure: early_count {
+    view_label: "Flights Details"
+    type: count
+    drill_fields: [detail*]
+
+    filters: {
+      field: arrival_status
+      value: "Early"
+    }
+  }
+  ### A few percent measures which are used to hack a sort of 'progress' bar.
+  ### Could probably use this for things like Delivery Statuses by teams/dispatchers
+  ### or a compliance dashboard.
+  measure: percent_cancelled {type: number sql: round(1.0*${cancelled_count}/${count},3);;
+    value_format_name: percent_2
+    html: <div style="float: left
+    ; width:{{ value | times:100}}%
+    ; background-color: rgba(42,50,86,{{ value | times:100 }})
+    ; text-align:left
+    ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 4px;">{{ value | times:100 }}%</p>
+    </div>
+    <div style="float: left
+    ; width:{{ 1| minus:value|times:100}}%
+    ; background-color: rgba(42,50,86,0.1)
+    ; text-align:right
+    ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 0px; color:rgba(77,166,201,0.0" )>{{100.0 | minus:value }} </p>
+    </div>
+;;
+}
+  measure: percent_early {type: number sql: round(1.0*${early_count}/${count},3);;
+    value_format_name: percent_2
+    html: <div style="float: left
+          ; width:{{ value | times:100}}%
+          ; background-color: rgba(42,50,86,{{ value | times:100 }})
+          ; text-align:left
+          ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 4px;">{{ value | times:100 }}%</p>
+          </div>
+          <div style="float: left
+          ; width:{{ 1| minus:value|times:100}}%
+          ; background-color: rgba(42,50,86,0.1)
+          ; text-align:right
+          ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 0px; color:rgba(77,166,201,0.0" )>{{100.0 | minus:value }} </p>
+          </div>
+      ;;
+  }
+measure: percent_diverted {type: number sql: round(1.0*${diverted_count}/${count},3);;
+    value_format_name: percent_2
+    html: <div style="float: left
+    ; width:{{ value | times:100}}%
+    ; background-color: rgba(77,166,201,{{ value | times:100 }})
+    ; text-align:left
+    ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 4px;">{{ value | times:100 }}%</p>
+    </div>
+    <div style="float: left
+    ; width:{{ 1| minus:value|times:100}}%
+    ; background-color: rgba(77,166,201,0.1)
+    ; text-align:right
+    ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 0px; color:rgba(77,166,201,0.0" )>test </p>
+    </div>
+    ;;}
+  measure: percent_very_late {type: number sql: round(1.0*${v_late_count}/${count},3);;
+    value_format_name: percent_2
+    html: <div style="float: left
+    ; width:{{ value | times:100}}%
+    ; background-color: rgba(255,106,19,{{ value | times:100 }})
+    ; text-align:left
+    ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 4px;">{{ value | times:100 }}%</p>
+    </div>
+    <div style="float: left
+    ; width:{{ 1| minus:value|times:100}}%
+    ; background-color: rgba(253,95,92,0.1)
+    ; text-align:right
+    ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 0px; color:rgba(77,166,201,0.0" )>t</p>
+    </div>
+    ;;}
+
+  measure: percent_on_time {type: number sql: round(1.0*${ontime_count}/${count},3);;
+    value_format_name: percent_2
+    html:<div style="float: left
+    ; width:{{ value | times:100}}%
+    ; background-color: rgba(36,154,98,{{ value | times:100 }})
+    ; text-align:left
+    ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 4px;">{{ value | times:100 }}%</p>
+    </div>
+    <div style="float: left
+    ; width:{{ 1| minus:value|times:100}}%
+    ; background-color: rgba(36,154,98,0.1)
+    ; text-align:right
+    ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 0px; color:rgba(77,166,201,0.0" )>{{10 | minus:value }}</p>
+    </div>
+    ;;
+
+    }
+
+  measure: percent_late {type: number sql: round(1.0*${late_count}/${count},3);;
+    value_format_name: percent_2
+    html: <div style="float: left
+    ; width:{{ value | times:100}}%
+    ; background-color: rgba(249,223,145,{{ value | times:100 }})
+    ; text-align:left
+    ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 4px;">{{ value | times:100 }}%</p>
+    </div>
+    <div style="float: left
+    ; width:{{ 1| minus:value|times:100}}%
+    ; background-color: rgba(249,223,145,0.1)
+    ; text-align:right
+    ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 0px; color:rgba(249,223,145,0.0" )>test </p>
+    </div>
+    ;;}
+
+
 
   set: detail {
     fields: [distance, origin, destination, arrival_status]
