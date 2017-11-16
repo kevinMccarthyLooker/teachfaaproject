@@ -1,3 +1,4 @@
+
 view: flights {
   sql_table_name: flights ;;
 
@@ -7,7 +8,6 @@ view: flights {
     type: number
     sql: ${TABLE}.id2 ;;
   }
-
 ###################### TRAINING FIELDS ###########################
 
   dimension: distance {
