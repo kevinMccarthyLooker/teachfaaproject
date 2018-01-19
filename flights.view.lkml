@@ -170,7 +170,7 @@ view: flights {
     value_format_name: decimal_2
   }
 
-  dimension: reason_for_death {
+  dimension: origin {
     view_label: "Flights Details"
     drill_fields: [detail*]
     type: string
@@ -390,7 +390,7 @@ measure: percent_diverted {type: number sql: round(1.0*${diverted_count}/${count
 
 
   set: detail {
-    fields: [reason_for_death]
+    fields: [origin, destination]
   }
 
 
