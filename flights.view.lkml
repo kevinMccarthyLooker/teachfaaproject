@@ -170,8 +170,9 @@ view: flights {
     value_format_name: decimal_2
   }
 
-  dimension: origin {
+  dimension: reason_for_death {
     view_label: "Flights Details"
+    drill_fields: [detail*]
     type: string
     sql: ${TABLE}.origin ;;
   }
@@ -308,15 +309,16 @@ view: flights {
     value_format_name: percent_2
     html: <div style="float: left
           ; width:{{ value | times:100}}%
-          ; background-color: rgba(42,50,86,{{ value | times:100 }})
+          ; background-color: rgba(135,206,235,{{ value | times:100 }})
           ; text-align:left
-          ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 4px;">{{ value | times:100 }}%</p>
+
+          ; border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 4px;">{{ value | times:100 }}%</p>
           </div>
           <div style="float: left
           ; width:{{ 1| minus:value|times:100}}%
-          ; background-color: rgba(42,50,86,0.1)
+          ; background-color: rgba(135,206,235,0.1)
           ; text-align:right
-          ;border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 0px; color:rgba(77,166,201,0.0" )>{{100.0 | minus:value }} </p>
+          ; border-radius: 5px"> <p style="margin-bottom: 0; margin-left: 0px; color:rgba(77,166,201,0.0" )>{{100.0 | minus:value }} </p>
           </div>
       ;;
   }
@@ -388,7 +390,7 @@ measure: percent_diverted {type: number sql: round(1.0*${diverted_count}/${count
 
 
   set: detail {
-    fields: [distance, origin, destination, arrival_status]
+    fields: [reason_for_death]
   }
 
 

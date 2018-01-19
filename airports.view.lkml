@@ -113,6 +113,7 @@ view: airports {
 
   measure: average_elevation {
     type: average
+    html: {{ count._value }} ;;
     sql: ${elevation} ;;
   }
 
