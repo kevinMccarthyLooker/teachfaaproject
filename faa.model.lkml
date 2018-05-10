@@ -21,7 +21,7 @@ explore: flights {
   }
 
   join: aircraft_flight_facts {
-    view_label: "Aircraft"
+    # view_label: "Aircraft"
     type: left_outer
     sql_on: ${aircraft.tail_num} = ${aircraft_flight_facts.tail_num} ;;
     relationship: one_to_one
