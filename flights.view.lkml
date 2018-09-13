@@ -11,6 +11,8 @@ view: flights {
 ###################### TRAINING FIELDS ###########################
 
 
+  ## DUMMY TEXT
+
   dimension: distance {
     type: number
     sql: ${TABLE}.distance ;;
