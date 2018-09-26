@@ -113,6 +113,53 @@ view: flights {
     sql: ${TABLE}.arr_time ;;
   }
 
+  #km for videotesting. To be cleared by 9/28
+  parameter: depart_time_parameter {
+    type: string
+    hidden: yes
+  }
+#   filter: apply_depart_time_parameter_as_filter  {
+#     type: yesno
+#     sql: {% parameter depart_time_parameter %} ;;
+#   }
+  dimension: flight_completion_ratio {
+    type: number
+    hidden: yes
+    label: "test"
+#     sql:      datediff(seconds,{% parameter depart_time_parameter %},${depart_time}) ;;
+#
+      sql:
+    case when flights.dep_time >(CONVERT_TIMEZONE('America/Los_Angeles', 'UTC', TIMESTAMP {% parameter depart_time_parameter %}))
+    then 0
+    else
+      case when
+      flights.arr_time>(CONVERT_TIMEZONE('America/Los_Angeles', 'UTC', TIMESTAMP {% parameter depart_time_parameter %}))
+      then
+      datediff(seconds,flights.dep_time,(CONVERT_TIMEZONE('America/Los_Angeles', 'UTC', TIMESTAMP {% parameter depart_time_parameter %})))*1.0
+      /
+      datediff(seconds,flights.dep_time,flights.arr_time)*1.0
+      else
+      1
+      end
+    end
+      ;;
+  }
+
+#   dimension: interpolated_latitude {
+#     sql: ${aircraft_origin.latitude}+${aircraft_destination.latitude} ;;
+#   }
+#   dimension: interpolated_longitude {
+#     sql: ${aircraft_origin.longitude}+${aircraft_destination.longitude} ;;
+#   }
+  dimension: interpolated_map_location {
+    hidden: yes
+    type: location
+    sql_latitude: ${aircraft_origin.latitude}+(${aircraft_destination.latitude}-${aircraft_origin.latitude})*${flight_completion_ratio};;
+    sql_longitude: ${aircraft_origin.longitude}+(${aircraft_destination.longitude}-${aircraft_origin.longitude})*${flight_completion_ratio};;
+
+  }
+
+
   dimension: cancelled {
     view_label: "Flights Details"
     type: string
