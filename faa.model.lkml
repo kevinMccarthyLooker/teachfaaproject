@@ -4,6 +4,8 @@ include: "*.view"
 # include all dashboards in this project
 # include: "*.dashboard"
 
+persist_for: "3 hours"
+
 explore: airports {}
 
 explore: flights {
