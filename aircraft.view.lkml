@@ -123,7 +123,7 @@ view: aircraft {
   }
 
   dimension: year_built {
-    type: number
+    type: date_year
     sql: ${TABLE}.year_built ;;
   }
 
