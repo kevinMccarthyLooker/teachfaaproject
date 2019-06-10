@@ -124,7 +124,7 @@ view: aircraft {
 
   dimension: year_built {
     type: date_year
-    sql: ${TABLE}.year_built ;;
+    sql: TO_DATE(CAST(${TABLE}.year_built AS text), 'YYYY');;
   }
 
   dimension: zip {

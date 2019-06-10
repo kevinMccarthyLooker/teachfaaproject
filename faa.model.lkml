@@ -3,20 +3,7 @@ connection: "red_flight"
 include: "*.view"
 # include all dashboards in this project
 # include: "*.dashboard"
-
-
-
-
-
-
-
-
-
-
-
-
-
-persist_for: "3 hours"
+# persist_for: "3 hours"
 
 explore: airports {}
 
