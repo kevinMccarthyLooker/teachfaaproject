@@ -2,11 +2,26 @@ connection: "red_flight"
 # include all views in this project
 include: "*.view"
 # include all dashboards in this project
-include: "*.dashboard"
+# include: "*.dashboard"
+
+
+
+
+
+
+
+
+
+
+
+
+
+persist_for: "3 hours"
 
 explore: airports {}
 
 explore: flights {
+  description: "Start here for information about flights!"
   join: carriers {
     type: left_outer
     sql_on: ${flights.carrier} = ${carriers.code} ;;
@@ -20,7 +35,7 @@ explore: flights {
   }
 
   join: aircraft_flight_facts {
-    view_label: "Aircraft"
+    # view_label: "Aircraft"
     type: left_outer
     sql_on: ${aircraft.tail_num} = ${aircraft_flight_facts.tail_num} ;;
     relationship: one_to_one
@@ -36,7 +51,7 @@ explore: flights {
     type: left_outer
     sql_on: ${flights.origin} = ${aircraft_origin.code} ;;
     relationship: many_to_one
-    fields: [full_name, city, state, code]
+    fields: [full_name, city, state, code,map_location]
   }
 
   join: aircraft_destination {
@@ -46,4 +61,5 @@ explore: flights {
     relationship: many_to_one
     fields: [full_name, city, state, code]
   }
+
 }

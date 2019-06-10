@@ -4,7 +4,7 @@ include: "*.view"
 
 
 # include all dashboards in this project
-include: "*.dashboard"
+# include: "*.dashboard"
 
 explore: hr_looker_training_set {
   label: "HR Looker Training Set"
