@@ -34,7 +34,16 @@ view: aircraft_models {
 
   dimension: manufacturer {
     type: string
-    sql: ${TABLE}.manufacturer ;;
+    sql:
+    case when
+    ${TABLE}.manufacturer LIKE 'AIRBUS%' THEN 'AIRBUS'
+    ELSE
+    ${TABLE}.manufacturer
+    end
+
+
+
+    ;;
   }
 
   dimension: model {
