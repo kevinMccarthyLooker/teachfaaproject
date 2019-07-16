@@ -393,7 +393,7 @@ measure: percent_diverted {type: number sql: round(1.0*${diverted_count}/${count
 
 
   set: detail {
-    fields: [origin, destination]
+    fields: [origin, destination,count]
   }
 
 
