@@ -21,18 +21,6 @@ explore: flights {
     relationship: many_to_one
   }
 
-  join: aircraft_flight_facts {
-    # view_label: "Aircraft"
-    type: left_outer
-    sql_on: ${aircraft.tail_num} = ${aircraft_flight_facts.tail_num} ;;
-    relationship: one_to_one
-  }
-
-  join: aircraft_models {
-    sql_on: ${aircraft.aircraft_model_code} = ${aircraft_models.aircraft_model_code} ;;
-    relationship: many_to_one
-  }
-
   join: aircraft_origin {
     from: airports
     type: left_outer
@@ -49,4 +37,15 @@ explore: flights {
     fields: [full_name, city, state, code]
   }
 
+  join: aircraft_flight_facts {
+    # view_label: "Aircraft"
+    type: left_outer
+    sql_on: ${aircraft.tail_num} = ${aircraft_flight_facts.tail_num} ;;
+    relationship: one_to_one
+  }
+
+  join: aircraft_models {
+    sql_on: ${aircraft.aircraft_model_code} = ${aircraft_models.aircraft_model_code} ;;
+    relationship: many_to_one
+  }
 }
