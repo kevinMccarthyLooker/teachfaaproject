@@ -34,7 +34,7 @@ explore: flights {
     type: left_outer
     sql_on: ${flights.destination} = ${aircraft_destination.code} ;;
     relationship: many_to_one
-    fields: [full_name, city, state, code]
+    fields: [full_name, city, state, code, aircraft_destination.map_location]
   }
 
   join: aircraft_flight_facts {
