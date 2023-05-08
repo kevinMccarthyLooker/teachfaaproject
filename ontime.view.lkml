@@ -1,5 +1,5 @@
 view: ontime {
-  sql_table_name: public.ontime ;;
+  sql_table_name: ontime ;;
 
   dimension: arr_delay {
     type: number

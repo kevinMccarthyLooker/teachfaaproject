@@ -1,5 +1,9 @@
 view: carriers {
-  sql_table_name: public.carriers ;;
+  # sql_table_name: carriers ;;
+  #5/8/2023
+  derived_table: {
+    sql: select string_field_0 as code, string_field_1 as name,string_field_2 as nickname from carriers where string_field_0 <>'code' ;;
+  }
 
   dimension: code {
     primary_key: yes

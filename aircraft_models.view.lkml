@@ -1,5 +1,5 @@
 view: aircraft_models {
-  sql_table_name: public.aircraft_models ;;
+  sql_table_name: aircraft_models ;;
 
   dimension: aircraft_model_code {
     primary_key: yes

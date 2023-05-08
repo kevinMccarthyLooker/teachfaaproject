@@ -328,10 +328,10 @@ include: "*.view"
 #   # }
 # }
 
-
-explore: fruit_basket {}
+#disabled 5/3.  Dataset already exists in a dfiferent connection and not in this new bq connection
+# explore: fruit_basket {}
 view: fruit_basket {
-  sql_table_name: public.fruit_basket ;;
+  sql_table_name: fruit_basket ;;
 
   dimension: fruit_type {
     type: string

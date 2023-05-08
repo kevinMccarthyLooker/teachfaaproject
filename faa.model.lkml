@@ -6,8 +6,6 @@ include: "*.view"
 # include: "*.dashboard"
 # persist_for: "3 hours"
 
-explore: airports {}
-
 explore: flights {
   description: "Start here for information about flights!"
   join: carriers {

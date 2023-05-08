@@ -1,5 +1,5 @@
 view: flights_by_day {
-  sql_table_name: public.flights_by_day ;;
+  sql_table_name: flights_by_day ;;
 
   dimension: arr_delay {
     type: number

@@ -1,5 +1,5 @@
 view: accidents {
-  sql_table_name: public.accidents ;;
+  sql_table_name: accidents ;;
 
   dimension: id {
     primary_key: yes

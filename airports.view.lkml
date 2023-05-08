@@ -1,5 +1,5 @@
 view: airports {
-  sql_table_name: public.airports ;;
+  sql_table_name: airports ;;
 
   dimension: id {
     primary_key: yes
@@ -13,7 +13,8 @@ view: airports {
     type: time
     timeframes: [date, week, month, year]
     convert_tz: no
-    sql: CASE WHEN ${TABLE}.act_date = '' THEN to_date('1970-01-01', 'YYYY-MM-DD') else to_date(${TABLE}.act_date, 'MM/YYYY') END ;;
+    # sql: CASE WHEN ${TABLE}.act_date = '' THEN to_date('1970-01-01', 'YYYY-MM-DD') else to_date(${TABLE}.act_date, 'MM/YYYY') END ;;
+    sql: CASE WHEN ${TABLE}.act_date = '' THEN date('1970-01-01') else PARSE_DATE('%m/%Y',${TABLE}.act_date) END ;;
   }
 
   dimension: act_date {
