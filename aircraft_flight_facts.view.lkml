@@ -1,8 +1,8 @@
 view: aircraft_flight_facts {
   derived_table: {
-    sortkeys: ["tail_num"]
-    distribution_style: even
-    sql_trigger_value: select current_date ;;
+    # sortkeys: ["tail_num"]
+    # distribution_style: even
+    # sql_trigger_value: select current_date ;;
 
     sql: SELECT tail_num AS tail_num
                ,SUM(distance) AS lifetime_distance

@@ -1,5 +1,5 @@
 view: aircraft {
-  sql_table_name: public.aircraft ;;
+  sql_table_name: aircraft ;;
 
   dimension: tail_num {
     type: string
