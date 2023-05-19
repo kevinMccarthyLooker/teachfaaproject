@@ -48,3 +48,5 @@ explore: flights {
     relationship: many_to_one
   }
 }
+
+explore: airports {}
