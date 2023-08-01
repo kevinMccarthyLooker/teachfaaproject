@@ -1,11 +1,10 @@
-connection: "red_flight"
+# connection: "red_flight"
+connection: "flights_data_bq_kev" # ADJUSTED 5/8/2023 BECAUSE RED_FLIGHT NO LONGER AVAILABLE
 # include all views in this project
 include: "*.view"
 # include all dashboards in this project
 # include: "*.dashboard"
 # persist_for: "3 hours"
-
-explore: airports {}
 
 explore: flights {
   description: "Start here for information about flights!"
@@ -49,3 +48,5 @@ explore: flights {
     relationship: many_to_one
   }
 }
+
+explore: airports {}

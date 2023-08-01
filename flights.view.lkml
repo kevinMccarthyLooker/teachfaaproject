@@ -115,7 +115,8 @@ view: flights {
 
   dimension: cancelled {
     view_label: "Flights Details"
-    type: string
+    # type: string
+    type: yesno
     sql: ${TABLE}.cancelled ;;
   }
 
@@ -141,7 +142,8 @@ view: flights {
 
   dimension: diverted {
     view_label: "Flights Details"
-    type: string
+    # type: string
+    type: yesno
     sql: ${TABLE}.diverted ;;
   }
 
@@ -183,19 +185,21 @@ view: flights {
   dimension: tail_num {
     view_label: "Flights Details"
     type: string
-    sql: ${TABLE}.tail_num ;;
+    sql: trim(${TABLE}.tail_num) ;;
   }
 
   dimension: arrival_status {
     view_label: "Flights Details"
     case: {
       when: {
-        sql: ${TABLE}.cancelled='Y' ;;
+        # sql: ${TABLE}.cancelled='Y' ;;
+        sql: ${TABLE}.cancelled ;; #update for move to b1 5/3/23
         label: "Cancelled"
       }
 
       when: {
-        sql: ${TABLE}.diverted='Y' ;;
+        # sql: ${TABLE}.diverted='Y' ;;
+        sql: ${TABLE}.diverted ;; #update for move to b1 5/3/23
         label: "Diverted"
       }
 
@@ -225,7 +229,7 @@ view: flights {
 
     filters: {
       field: cancelled
-      value: "Y"
+      value: "Yes"
     }
   }
 
@@ -266,7 +270,7 @@ view: flights {
 
     filters: {
       field: cancelled
-      value: "N"
+      value: "no"
     }
   }
   measure: diverted_count {
@@ -395,6 +399,5 @@ measure: percent_diverted {type: number sql: round(1.0*${diverted_count}/${count
   set: detail {
     fields: [origin, destination,count]
   }
-
 
 }

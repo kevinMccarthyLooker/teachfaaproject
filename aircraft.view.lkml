@@ -1,5 +1,5 @@
 view: aircraft {
-  sql_table_name: public.aircraft ;;
+  sql_table_name: aircraft ;;
 
   dimension: tail_num {
     type: string
@@ -124,7 +124,9 @@ view: aircraft {
 
   dimension: year_built {
     type: date_year
-    sql: TO_DATE(CAST(${TABLE}.year_built AS text), 'YYYY');;
+    datatype: yyyymmdd
+    # sql: TO_DATE(CAST(${TABLE}.year_built AS text), 'YYYY');;
+    sql: concat(year_built,'0101') ;; #updated for bq 5/8/23
   }
 
   dimension: zip {
@@ -136,4 +138,7 @@ view: aircraft {
     type: count
     drill_fields: [name]
   }
+
+
+
 }
