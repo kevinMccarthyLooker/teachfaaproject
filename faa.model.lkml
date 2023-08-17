@@ -1,5 +1,5 @@
 # connection: "red_flight"
-connection: "flights_data_bq_kev" # ADJUSTED 5/8/2023 BECAUSE RED_FLIGHT NO LONGER AVAILABLE
+connection: "kevmccarthy_bq" # ADJUSTED 8/17/2023 BECAUSE RED_FLIGHT NO LONGER AVAILABLE
 # include all views in this project
 include: "*.view"
 # include all dashboards in this project
